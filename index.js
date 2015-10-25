@@ -13,7 +13,7 @@ var createEventModel = function(eventName, context){
     deepExtend(eventModel.ExtraData, context.ExtraData);
     deepExtend(eventModel.MetaData, context.MetaData);
 
-    Promise.all(context.Filters.map(function(filter) {
+    return Promise.all(context.Filters.map(function(filter) {
         try{
             return Promise.resolve(filter(eventModel)).catch(function () {});
         }
@@ -29,8 +29,14 @@ var createEventModel = function(eventName, context){
 var createDispatcherWriter = function(eventModelWriter, rootContext) {
     return new AnalyticsDispatcher(function(name, context)
     {
-        return eventModelWriter(createEventModel(name,context));
-    }, rootContext)
+    	Promise.resolve()
+    		.then(function () {
+    			return createEventModel(name,context);
+    		})
+    		.then(function (eventModel){
+    			return eventModelWriter(eventModel);
+    		});
+    }, rootContext);
 };
 
 module.exports = {
