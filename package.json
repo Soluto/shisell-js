@@ -1,0 +1,22 @@
+{
+  "name": "analytics-js",
+  "version": "0.0.1",
+  "description": "JavaScript library for building scoped Analytics with extra data, identities and more",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Soluto/analytics-js.git"
+  },
+  "keywords": [
+    "analytics"
+  ],
+  "author": "Soluto",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^2.10.2",
+    "deep-extend": "^0.4.0"
+  }
+}
