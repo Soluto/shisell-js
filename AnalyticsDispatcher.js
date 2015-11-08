@@ -1,5 +1,4 @@
 var deepExtend = require('deep-extend');
-
 var AnalyticsContext = require('./AnalyticsContext');
 
 function AnalyticsDispatcher(dispatch, context){
