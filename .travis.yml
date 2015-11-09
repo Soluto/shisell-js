@@ -8,6 +8,7 @@ addons:
 
 before_script:
 - npm install -g istanbul
+- npm install -g mocha
 - npm install -g codeclimate-test-reporter
 
 after_script:
