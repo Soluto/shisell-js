@@ -4,7 +4,7 @@
   "description": "JavaScript library for building scoped Analytics with extra data, identities and more",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha tests"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,13 @@
   "author": "Soluto",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^2.10.2",
-    "deep-extend": "^0.4.0"
+    "bluebird": "2.10.2",
+    "deep-extend": "0.4.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "2.3.3",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
   }
 }
