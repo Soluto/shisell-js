@@ -8,7 +8,7 @@ var AnalyticsDispatcher = require('./AnalyticsDispatcher');
 var createEventModel = function(eventName, context){
     var eventModel = new AnalyticsEventModel();
     eventModel.Name = eventName;
-    eventModel.Scope = context.Scope;
+    eventModel.Scope = context.Scopes.join("_");
 
     deepExtend(eventModel.ExtraData, context.ExtraData);
     deepExtend(eventModel.MetaData, context.MetaData);
@@ -29,7 +29,7 @@ var createEventModel = function(eventName, context){
 var createDispatcherWriter = function(eventModelWriter, rootContext) {
     return new AnalyticsDispatcher(function(name, context)
     {
-    	Promise.resolve()
+    	return Promise.resolve()
     		.then(function () {
     			return createEventModel(name,context);
     		})

@@ -1,6 +1,6 @@
 module.exports = function AnalyticsContext(){
     var self = this;
-    self.Scope = "";
+    self.Scopes = [];
     self.ExtraData = {};
     self.MetaData = {};
     self.Filters = [];

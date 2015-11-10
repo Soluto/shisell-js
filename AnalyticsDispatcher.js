@@ -14,14 +14,14 @@ function AnalyticsDispatcher(dispatch, context){
         var unionContext = {};
         deepExtend(unionContext, oldContext);
         deepExtend(unionContext, newContext || {});
-        unionContext.Scope = unionScopes(oldContext.Scope,(newContext || {}).Scope);
+        unionContext.Scopes = unionScopes(oldContext.Scopes,(newContext || {}).Scopes);
         return unionContext;
     }
 
     function unionScopes(first,second){
-        if (!first) return second || "";
-        if (!second) return first || "";
-        return first + "_" + second;
+        if (!first) return second || [];
+        if (!second) return first || [];
+        return first.concat(second);
     }
 
     return self;
@@ -33,7 +33,7 @@ AnalyticsDispatcher.prototype.withContext = function(analyticsContext){
 
 AnalyticsDispatcher.prototype.createScoped = function(scope){
     var newContext = new AnalyticsContext();
-    newContext.Scope = scope;
+    newContext.Scopes = [scope];
     return this.withContext(newContext);
 };
 
