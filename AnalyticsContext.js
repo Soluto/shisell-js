@@ -4,6 +4,7 @@ module.exports = function AnalyticsContext(){
     self.ExtraData = {};
     self.MetaData = {};
     self.Filters = [];
+    self.Identities = {};
 
     return self;
 };

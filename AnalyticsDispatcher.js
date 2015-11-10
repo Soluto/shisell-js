@@ -58,10 +58,7 @@ AnalyticsDispatcher.prototype.withMeta = function(key,value){
 
 AnalyticsDispatcher.prototype.withIdentity = function (key, value) {
     var newContext = new AnalyticsContext();
-    var filter = function(eventModel) {
-        eventModel.Identities[key] = value;
-    };
-    newContext.Filters.push(filter);
+    newContext.Identities[key] = value;
     return this.withContext(newContext);
 };
 

@@ -100,4 +100,18 @@ describe('AnalyticsDispatcher', function() {
       dispatch.should.have.been.calledWith(eventName, context);
     });
   });
+  
+  describe('withIdentity', function () {
+    it('should called dispatch with passed identity', function () {
+      var key = "key";
+      var value = "value";
+      var eventName = "event";
+      var context = new AnalyticsContext();
+      context.Identities = {key : value};
+      
+      analyticsDispathcer.withIdentity(key, value).dispatch(eventName);
+      
+      dispatch.should.have.been.calledWith(eventName, context);
+    });
+  });
 });
