@@ -14,11 +14,12 @@ function AnalyticsDispatcher(dispatch, context){
         var unionContext = {};
         deepExtend(unionContext, oldContext);
         deepExtend(unionContext, newContext || {});
-        unionContext.Scopes = unionScopes(oldContext.Scopes,(newContext || {}).Scopes);
+        unionContext.Scopes = unionArrays(oldContext.Scopes,(newContext || {}).Scopes);
+        unionContext.Filters = unionArrays(oldContext.Filters,(newContext || {}).Filters);
         return unionContext;
     }
 
-    function unionScopes(first,second){
+    function unionArrays(first,second){
         if (!first) return second || [];
         if (!second) return first || [];
         return first.concat(second);

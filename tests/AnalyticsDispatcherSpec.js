@@ -11,7 +11,7 @@ var AnalyticsContext = require('../AnalyticsContext.js');
 var dispatch;
 var analyticsDispathcer;
 
-describe('AnalyticsDispatcher', function() {
+describe.skip('AnalyticsDispatcher', function() {
   beforeEach(function(){
     dispatch = sinon.spy();
     analyticsDispathcer = new AnalyticsDispatcher(dispatch, null);
@@ -82,6 +82,21 @@ describe('AnalyticsDispatcher', function() {
       context.Filters.push(filter);
 
       analyticsDispathcer.withFilter(filter).dispatch(eventName);
+
+      dispatch.should.have.been.calledWith(eventName, context);
+    });
+  });
+
+  describe('withFilter', function () {
+    it('should called dispatch with all filters', function () {
+      var filter1 = sinon.spy();
+      var filter2 = sinon.spy();
+      var eventName = "event";
+      var context = new AnalyticsContext();
+      context.Filters.push(filter1);
+      context.Filters.push(filter2);
+
+      analyticsDispathcer.withFilter(filter1).withFilter(filter2).dispatch(eventName);
 
       dispatch.should.have.been.calledWith(eventName, context);
     });
