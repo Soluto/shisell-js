@@ -9,9 +9,9 @@ var createEventModel = function(eventName, context){
   var eventModel = new AnalyticsEventModel();
   eventModel.Name = eventName;
   eventModel.Scope = context.Scopes.join("_");
-
   deepExtend(eventModel.ExtraData, context.ExtraData);
   deepExtend(eventModel.MetaData, context.MetaData);
+  deepExtend(eventModel.Identities, context.Identities);
   return context.Filters.reduce(function(cur, next) {
     return cur.then(
       function(){
