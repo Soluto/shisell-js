@@ -7,7 +7,7 @@ var Promise = require('bluebird');
 chai.should();
 chai.use(sinonChai);
 
-var createRootDispatcher = require('../index.js').createRootDispatcher;
+var createRootDispatcher = require('../createRootDispatcher.js');
 var rootDispatcher;
 var eventModel;
 describe('RootDispatcher', function() {
