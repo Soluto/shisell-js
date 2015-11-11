@@ -6,9 +6,5 @@ module.exports = function AnalyticsEventModel(){
     self.ExtraData = {};
     self.Identities = {};
 
-    this.fullName = function(){
-        return self.Scope != "" ? self.Scope + self.Name : self.Name;
-    };
-
     return self;
 };
