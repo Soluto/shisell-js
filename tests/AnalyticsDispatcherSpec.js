@@ -11,7 +11,7 @@ var AnalyticsContext = require('../AnalyticsContext.js');
 var dispatch;
 var analyticsDispathcer;
 
-describe.skip('AnalyticsDispatcher', function() {
+describe('AnalyticsDispatcher', function() {
   beforeEach(function(){
     dispatch = sinon.spy();
     analyticsDispathcer = new AnalyticsDispatcher(dispatch, null);
