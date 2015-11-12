@@ -2,14 +2,15 @@ var deepExtend = require('deep-extend');
 
 
 module.exports = function(id){
-  var writeEvent = function(eventModel){
+  return function(eventModel){
     if (!mixpanel) return;
 
-    var extra = {}, eventModel.Identities, eventModel.ExtraData, eventModel.MetaData);
+    var extra = deepExtend({}, eventModel.Identities, eventModel.ExtraData, eventModel.MetaData);
+    var previousDistinctId;
     if (eventModel.Identities[id]){
-        extra['distinct_id'] = eventModel.Identities[id];
+      mixpanel.identify(eventModel.Identities[id]);
     }
-
+    
     mixpanel.track(eventModel.Scope + '_' + eventModel.Name, extra);
   };
 };
