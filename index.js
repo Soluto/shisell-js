@@ -1,8 +1,8 @@
-var AnalyticsContext = require('./AnalyticsContext');
-var AnalyticsDispatcher = require('./AnalyticsDispatcher');
-var createRootDispatcher = require('./createRootDispatcher');
-var consoleWriter = require('./writers/consoleWriter');
-var mixpanelWriter = require('./writers/mixpanelWriter');
+var AnalyticsContext = require('./lib/AnalyticsContext');
+var AnalyticsDispatcher = require('./lib/AnalyticsDispatcher');
+var createRootDispatcher = require('./lib/createRootDispatcher');
+var consoleWriter = require('./lib/writers/consoleWriter');
+var mixpanelWriter = require('./lib/writers/mixpanelWriter');
 
 module.exports = {
   AnalyticsContext: AnalyticsContext,

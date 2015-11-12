@@ -6,8 +6,8 @@ var sinonChai = require("sinon-chai");
 chai.should();
 chai.use(sinonChai);
 
-var AnalyticsDispatcher = require('../AnalyticsDispatcher.js');
-var AnalyticsContext = require('../AnalyticsContext.js');
+var AnalyticsDispatcher = require('../lib/AnalyticsDispatcher.js');
+var AnalyticsContext = require('../lib/AnalyticsContext.js');
 var dispatch;
 var analyticsDispathcer;
 
