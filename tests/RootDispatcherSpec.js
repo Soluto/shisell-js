@@ -31,6 +31,15 @@ describe('RootDispatcher', function() {
       });
     });
 
+    it('should copy identities', function (done) {
+      var id = '12345';
+      rootDispatcher.withIdentity('id',id).dispatch('event')
+      .then(function(){
+        eventModel.Identities['id'].should.be.equal(id);
+        done();
+      });
+    });
+
     it('should run all filters', function (done) {
       var firstFilter = function(model){
         return Promise.resolve()
