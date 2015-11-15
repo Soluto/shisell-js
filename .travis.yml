@@ -4,7 +4,7 @@ node_js:
 
 addons:
     code_climate:
-        repo_token: 5558891de1c07d45e58be520d2d88bc781bfddeee968d43930ea4797bfac0aa8
+        repo_token: ff794714d59ad950b4def89ac0c2e950692f668361ac0729bc284207f2c39e86
 
 before_script:
 - npm install -g istanbul
