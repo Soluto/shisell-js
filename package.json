@@ -1,6 +1,6 @@
 {
   "name": "shisell",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,9 @@
     "url": "https://github.com/Soluto/shisell-js.git"
   },
   "keywords": [
-    "analytics", "dispatcher", "mixpanel"
+    "analytics",
+    "dispatcher",
+    "mixpanel"
   ],
   "author": "Soluto",
   "license": "MIT",
