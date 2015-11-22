@@ -80,6 +80,9 @@ homePageDispatcher.dispatch('PageView')
 //    }
 // }
 ```
+
+Note: currently filters have to be asynchronous (return a promise).
+
 #### Extending the Dispatcher
 We use several different extension methods for composing dispatchers, and you can easily add a custom one. For example, let's say that we frequently create dispatchers with several extra data properties that are part of our user model. So we have this sort of code often:
 
@@ -113,6 +116,7 @@ When you call 'dispatch' on a dispatcher, it creates a union of the [AnalyticsCo
 
 If you would like to use a different model than the AnalyticsEventModel you can create your own custom dispatcher by creating a new [AnalyticsDispatcher](https://github.com/Soluto/shisell-js/blob/master/lib/AnalyticsDispatcher.js) and passing it a function that receives two parameters - the eventName and the context.
 
+Note: it is the root dispatcher's responsibility to run the filters.
 
 ## Contributing
 Thanks for thinking about contributing! We are looking for contributions of any sort and size - features, bug fixes, documentation or anything else that you think will make shisell better.
