@@ -11,5 +11,6 @@ module.exports = {
   writers: {
     console: consoleWriter,
     mixpanel: mixpanelWriter
-  }
+  },
+  ext: AnalyticsDispatcher.prototype
 };
