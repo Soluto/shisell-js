@@ -5,7 +5,7 @@
 
 Shisell is a service agnostic abstraction for analytic dispatchers.
 
-It helps you create dispatch analytic events that are scoped to a component or module with extra data, different identities, meta data and lazy filters. Shisell's analytic dispatchers are immutable and can be composed by passing a dispatcher to a child module. Shisell can be used as an abstraction for sending analytic events so you can switch and add services without rewriting the actual dispatch code.
+It helps you dispatch analytic events that are scoped to a component or module with extra data, different identities, meta data and lazy filters. Shisell's analytic dispatchers are immutable and can be composed by passing a dispatcher to a child module. Shisell can be used as an abstraction for sending analytic events so you can switch and add services without rewriting the actual dispatch code.
 
 Shisell is isomorphic and can be used on different environments (client, server, and native).
 
@@ -28,9 +28,9 @@ var rootDispatcher = shisell.createRootDispatcher(shisell.writers.console);
 var loginViewDispatcher = rootDispatcher.createScoped('LoginView');
 var registrationBoxDispatcher = loginViewDispatcher.withExtra('type', 'registration');
 //...
-document.getElementById('btn-register').onclick = function(){
+document.getElementById('btn-register').addEventListener("click", function(){
   registrationBoxDispatcher.withIdentity('email', userEmail).withExtra('btn','register').dispatch('click');
-}
+});
 
 //console output:
 // {  
