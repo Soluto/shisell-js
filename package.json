@@ -1,8 +1,9 @@
 {
   "name": "shisell",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
   "main": "index.js",
+  "readme": "README.md",
   "scripts": {
     "test": "./node_modules/.bin/mocha test"
   },
@@ -19,7 +20,8 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "2.10.2",
-    "deep-extend": "0.4.0"
+    "lodash": "^4.13.1",
+    "underscore-deep-extend": "^1.1.5"
   },
   "devDependencies": {
     "chai": "^3.4.0",
