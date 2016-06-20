@@ -97,7 +97,7 @@ var homeViewDispatcher = rootDispatcher
 Instead of writing this code every time you can add an extension method that does this for you:
 
 ```js
-//Extending the dispatcher
+//Extending the dispatcher (to preserve 'this' semantics, don't use an arrow function)
 shisell.ext.withUser = function(user){
   var newContext = new AnalyticsContext();
   newContext.ExtraData['firstName'] = user.firstName;
