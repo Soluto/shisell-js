@@ -102,6 +102,22 @@ describe('AnalyticsDispatcher', function() {
     });
   });
 
+  describe('withFilters', function () {
+    it('should called dispatch with all filters', function () {
+      var filter1 = sinon.spy();
+      var filter2 = sinon.spy();
+      var eventName = "event";
+      var context = new AnalyticsContext();
+      context.Filters.push(filter1);
+      context.Filters.push(filter2);
+
+      var filters = [filter1, filter2];
+      analyticsDispathcer.withFilters(filters).dispatch(eventName);
+
+      dispatch.should.have.been.calledWith(eventName, context);
+    });
+  });
+
   describe('withMeta', function () {
     it('should called dispatch with passed meta data', function () {
       var key = "key";

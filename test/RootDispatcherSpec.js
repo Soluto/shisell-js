@@ -83,5 +83,17 @@ describe('RootDispatcher', function() {
         done();
       });
     });
+
+    it('should include Time filter with ISO datetime string', function (done) {
+      clock = sinon.useFakeTimers(new Date(2016,1,1).getTime());
+      rootDispatcher.dispatch()
+      .then(function(){
+        eventModel.ExtraData["Time"].should.be.equal(new Date().toISOString());
+      })
+      .then(function(){
+        clock.restore();
+        done();
+      })
+    });
   });
 });
