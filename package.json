@@ -1,6 +1,6 @@
 {
   "name": "shisell",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
   "main": "index.js",
   "scripts": {
