@@ -74,6 +74,19 @@ describe('AnalyticsDispatcher', function() {
     });
   });
 
+  describe('withExtras', function () {
+    it('should called dispatch with all extras', function () {      
+      var extras = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'};
+      var eventName = "event";
+      var context = new AnalyticsContext();
+      context.ExtraData = extras;
+
+      analyticsDispathcer.withExtras(extras).dispatch(eventName);
+
+      dispatch.should.have.been.calledWith(eventName, context);
+    });
+  });
+
   describe('withFilter', function () {
     it('should called dispatch with passed filter', function () {
       var filter = sinon.spy();
@@ -141,6 +154,19 @@ describe('AnalyticsDispatcher', function() {
       context.Identities = {key : value};
 
       analyticsDispathcer.withIdentity(key, value).dispatch(eventName);
+
+      dispatch.should.have.been.calledWith(eventName, context);
+    });
+  });
+
+  describe('withIdentities', function () {
+    it('should called dispatch with all passed identities', function () {      
+      var identities = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'};
+      var eventName = "event";
+      var context = new AnalyticsContext();
+      context.Identities = identities;
+
+      analyticsDispathcer.withIdentities(identities).dispatch(eventName);
 
       dispatch.should.have.been.calledWith(eventName, context);
     });
