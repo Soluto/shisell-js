@@ -2,10 +2,13 @@ var assert = require('assert');
 var sinon = require('sinon');
 var chai = require("chai");
 var sinonChai = require("sinon-chai");
-var Promise = require('bluebird');
 
 chai.should();
 chai.use(sinonChai);
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 var createRootDispatcher = require('../lib/createRootDispatcher.js');
 var rootDispatcher;
@@ -63,7 +66,7 @@ describe('RootDispatcher', function() {
 
     it('should run filters sequentially', function (done) {
       var firstFilter = function(model){
-        return Promise.delay(10)
+        return delay(10)
         .then(function(){
 
           model.ExtraData["key"] = "firstFilter";
