@@ -2,7 +2,6 @@ var shisell = require('../index.js');
 var sinon = require('sinon');
 var chai = require("chai");
 var sinonChai = require("sinon-chai");
-var Promise = require('bluebird');
 
 chai.should();
 chai.use(sinonChai);
