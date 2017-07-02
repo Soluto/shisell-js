@@ -2,9 +2,13 @@
   "name": "shisell",
   "version": "0.2.0",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
-  "main": "index.js",
+  "main": "dist/shisell.umd.js",
+  "browser": "dist/shisell.umd.js",
+  "module": "dist/shisell.es.js",
+  "jsnext:main": "dist/shisell.es.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test"
+    "test": "mocha test",
+    "build": "rimraf dist && rollup -c"
   },
   "repository": {
     "type": "git",
@@ -17,11 +21,15 @@
   ],
   "author": "Soluto",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
-    "chai": "^3.4.0",
-    "mocha": "2.3.3",
-    "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0"
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.43.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-uglify": "^2.0.1",
+    "sinon": "^2.3.6",
+    "sinon-chai": "^2.11.0",
+    "uglify-es": "^3.0.23"
   }
 }

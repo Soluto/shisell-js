@@ -11,3 +11,7 @@ node_modules
 ## File-based project format:
 *.ipr
 *.iws
+
+## Project outputs:
+bundle.js
+dist
