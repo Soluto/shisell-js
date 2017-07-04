@@ -2,6 +2,7 @@
 [![Build Status](https://api.travis-ci.org/Soluto/shisell-js.svg?branch=master)](https://travis-ci.org/Soluto/shisell-js)
 [![Code Climate](https://codeclimate.com/github/Soluto/shisell-js/badges/gpa.svg)](https://codeclimate.com/github/Soluto/shisell-js)
 [![Test Coverage](https://codeclimate.com/github/Soluto/shisell-js/badges/coverage.svg)](https://codeclimate.com/github/Soluto/shisell-js/coverage)
+[![Dependency Status](https://www.versioneye.com/user/projects/595b5fa5368b080033562e8b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/595b5fa5368b080033562e8b)
 
 Shisell is a service agnostic abstraction for analytic dispatchers.
 
