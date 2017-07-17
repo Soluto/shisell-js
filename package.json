@@ -6,6 +6,7 @@
   "browser": "dist/shisell.umd.js",
   "module": "dist/shisell.es.js",
   "jsnext:main": "dist/shisell.es.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "mocha test",
     "build": "rimraf dist && rollup -c"
