@@ -9,7 +9,7 @@ declare module 'shisell' {
 
     export type DispatchAnalytics = (eventName: string, context?: AnalyticsContext) => Promise<AnalyticsEventModel>;
 
-    export type EventModelWriter<T> = (event: AnalyticsEventModel) => Promise<T>;
+    export type EventModelWriter<T> = (event: AnalyticsEventModel) => T;
 
     export type AnalyticsFilter = (
         dispatcher: AnalyticsDispatcher
