@@ -25,7 +25,7 @@ declare module 'shisell' {
     }
 
     export class AnalyticsDispatcher {
-        constructor(dispatch: DispatchAnalytics, context: AnalyticsContext);
+        constructor(dispatch: DispatchAnalytics, context?: AnalyticsContext);
         withContext(context: AnalyticsContext): AnalyticsDispatcher;
         createScoped(scope: string): AnalyticsDispatcher;
         withExtra(key: string, value: any): AnalyticsDispatcher;
