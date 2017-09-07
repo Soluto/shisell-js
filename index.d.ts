@@ -31,8 +31,10 @@ declare module 'shisell' {
         withExtra(key: string, value: any): AnalyticsDispatcher;
         withExtras(extras: object): AnalyticsDispatcher;
         withFilter(filter: AnalyticsFilter): AnalyticsDispatcher;
+        withFilters(filter: AnalyticsFilter[]): AnalyticsDispatcher;
         withMeta(key: string, value: any): AnalyticsDispatcher;
         withIdentity(key: string, value: any): AnalyticsDispatcher;
+        withIdentities(identities: {[key: string]: any}): AnalyticsDispatcher;
         dispatch: DispatchAnalytics;
     }
 
