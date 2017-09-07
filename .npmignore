@@ -1,0 +1,7 @@
+.codeclimate.yml
+.npmignore
+.travis.yml
+lib
+test
+node_modules
+index.js
