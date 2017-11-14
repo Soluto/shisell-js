@@ -6,28 +6,34 @@
 
 Shisell is a service agnostic abstraction for analytic dispatchers.
 
-It helps you dispatch analytic events that are scoped to a component or module with extra data, different identities, meta data and lazy filters. Shisell's analytic dispatchers are immutable and can be composed by passing a dispatcher to a child module. Shisell can be used as an abstraction for sending analytic events so you can switch and add services without rewriting the actual dispatch code.
+It helps you dispatch analytic events which are scoped to a component or module. It allows providing extra data (properties), identities, and metadata to the dispatched events. Shisell's analytic dispatchers are immutable and can be composed by passing a dispatcher object to a child module. Shisell can be used as an abstraction for sending analytic events so you can easily switch or add analytic services without rewriting the event dispatching code.
 
 Shisell is isomorphic and can be used on different environments (client, server, and native).
 
 ## Install
 
 ```sh
-$ npm install --save shisell
+$ yarn add shisell
 ```
 
 ## Usage
 
-When you dispatch analytics with shisell in ends up calling the writer function that is passed to the root dispatcher. A writer function is just a function that accepts an object of the type [AnalyticsEventModel](https://github.com/Soluto/shisell-js/blob/master/lib/AnalyticsEventModel.js), and usually writes it to an analytics service (e.g. Mixpanel, Google Analytics etc.).
-Shisell provides a writer out of the box that writes the event to the console. Once the root dispatcher is created you can compose dispatchers by calling one of the Dispatcher extension methods. Finally, call dispatch on one of the dispatchers with an event name.
+At the initialization code of your app, you should create a root dispatcher object. This root dispatcher is the "parent" of all dispatchers, and it is where you would set up common properties which needs to be attached to all the dispatched events.  
+In order to create the root dispatcher, shisell needs to receive a writer function. The writer function is just a function that accepts an object of type [AnalyticsEventModel](https://github.com/Soluto/shisell-js/blob/master/lib/AnalyticsEventModel.js), and usually writes it to an analytics service (e.g. Mixpanel, Google Analytics etc.). 
+Out of the box Shisell comes with a writer function which outputs the event to the console.
+
+Use the following code to use the built in dispatcher:  
 
 ```js
-//Creating the root dispatcher
-var rootDispatcher = shisell.createRootDispatcher(shisell.writers.console);
+const rootDispatcher = shisell.createRootDispatcher(shisell.writers.console);
+```
 
+Once the root dispatcher is created you can compose dispatchers by calling one of the Dispatcher extension methods. Finally, call dispatch on one of the dispatchers with an event name.
+
+```js
 //Composing dispatchers
-var loginViewDispatcher = rootDispatcher.createScoped('LoginView');
-var registrationBoxDispatcher = loginViewDispatcher.withExtra('type', 'registration');
+const loginViewDispatcher = rootDispatcher.createScoped('LoginView');
+const registrationBoxDispatcher = loginViewDispatcher.withExtra('type', 'registration');
 //...
 document.getElementById('btn-register').addEventListener("click", function(){
   registrationBoxDispatcher.withIdentity('email', userEmail).withExtra('btn','register').dispatch('click');
@@ -50,10 +56,11 @@ document.getElementById('btn-register').addEventListener("click", function(){
 
 #### Using Filters
 
-Filters are functions that are run by the root dispatcher at the time of the dispatch. Filters can be used to add dynamic values at any dispatcher level to the resulting event model. Here's an example adding a Timestamp propery:
+Filters are functions which are executed by the root dispatcher when dispatching events. Filters can be used to add dynamic values to the dispatched event.  
+Here's an example adding a Timestamp propery:
 
 ```js
-var rootDispatcher = shisell
+const rootDispatcher = shisell
                       .createRootDispatcher(shisell.writers.console)
                       .withFilter(function(model){
                         return Promise.resolve()
@@ -62,7 +69,7 @@ var rootDispatcher = shisell
                           });
                         });
 
-var homePageDispatcher = rootDispatcher.createScoped('HomePage');
+const homePageDispatcher = rootDispatcher.createScoped('HomePage');
 //...
 homePageDispatcher.dispatch('PageView')
 
@@ -88,7 +95,7 @@ Note: currently filters have to be asynchronous (return a promise).
 We use several different extension methods for composing dispatchers, and you can easily add a custom one. For example, let's say that we frequently create dispatchers with several extra data properties that are part of our user model. So we have this sort of code often:
 
 ```js
-var homeViewDispatcher = rootDispatcher
+const homeViewDispatcher = rootDispatcher
                           .withExtra('firstName', user.firstName)
                           .withExtra('lastName', user.lastName)
                           .withExtra('email', user.email)
@@ -109,7 +116,7 @@ shisell.ext.withUser = function(user){
 }
 
 //Usage
-var homeViewDispatcher = rootDispatcher.withUser(user);
+const homeViewDispatcher = rootDispatcher.withUser(user);
 ```
 
 #### Creating a Custom Root Dispatcher
@@ -129,5 +136,5 @@ Thanks for thinking about contributing! We are looking for contributions of any 
 
 #### Running Tests
 ```sh
-$ npm test
+$ yarn test
 ```
