@@ -107,7 +107,7 @@ Instead of writing this code every time you can add an extension method that doe
 ```js
 //Extending the dispatcher (to preserve 'this' semantics, don't use an arrow function)
 shisell.ext.withUser = function(user){
-  var newContext = new AnalyticsContext();
+  const newContext = new AnalyticsContext();
   newContext.ExtraData['firstName'] = user.firstName;
   newContext.ExtraData['lastName'] = user.lastName;
   newContext.ExtraData['email'] = user.email;
