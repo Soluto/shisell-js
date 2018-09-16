@@ -7,7 +7,7 @@ declare module 'shisell' {
         Identities: {[key: string]: any};
     };
 
-    export type DispatchAnalytics = (eventName: string, context?: AnalyticsContext) => Promise<AnalyticsEventModel>;
+    export type DispatchAnalytics = (eventName?: string, context?: AnalyticsContext) => Promise<AnalyticsEventModel>;
 
     export type EventModelWriter<T> = (event: AnalyticsEventModel) => T;
 
@@ -24,18 +24,12 @@ declare module 'shisell' {
         Identities: {[key: string]: any};
     }
 
+    export type AnalyticsExtender = (dispatcher: AnalyticsDispatcher) => AnalyticsDispatcher;
+
     export class AnalyticsDispatcher {
         constructor(dispatch: DispatchAnalytics, context?: AnalyticsContext);
-        withContext(context: AnalyticsContext): AnalyticsDispatcher;
-        createScoped(scope: string): AnalyticsDispatcher;
-        withExtra(key: string, value: any): AnalyticsDispatcher;
-        withExtras(extras: object): AnalyticsDispatcher;
-        withFilter(filter: AnalyticsFilter): AnalyticsDispatcher;
-        withFilters(filter: AnalyticsFilter[]): AnalyticsDispatcher;
-        withMeta(key: string, value: any): AnalyticsDispatcher;
-        withIdentity(key: string, value: any): AnalyticsDispatcher;
-        withIdentities(identities: {[key: string]: any}): AnalyticsDispatcher;
         dispatch: DispatchAnalytics;
+        extend: (...extenders: AnalyticsExtender[]) => AnalyticsDispatcher;
     }
 
     export function createRootDispatcher<T>(writer: EventModelWriter<T>, rootContext?: AnalyticsContext): AnalyticsDispatcher;
@@ -44,4 +38,16 @@ declare module 'shisell' {
         console: EventModelWriter<void>;
         mixpanel: (id: string) => EventModelWriter<void>;
     };
+
+    export var extenders: {
+        withContext(context: AnalyticsContext): AnalyticsExtender;
+        createScoped(scope: string): AnalyticsExtender;
+        withExtra(key: string, value: any): AnalyticsExtender;
+        withExtras(extras: object): AnalyticsExtender;
+        withFilter(filter: AnalyticsFilter): AnalyticsExtender;
+        withFilters(filter: AnalyticsFilter[]): AnalyticsExtender;
+        withMeta(key: string, value: any): AnalyticsExtender;
+        withIdentity(key: string, value: any): AnalyticsExtender;
+        withIdentities(identities: {[key: string]: any}): AnalyticsExtender;
+    }
 }
