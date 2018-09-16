@@ -1,102 +1,101 @@
-var assert = require('assert');
 var sinon = require('sinon');
-var chai = require("chai");
-var sinonChai = require("sinon-chai");
+var chai = require('chai');
 
 chai.should();
-chai.use(sinonChai);
 
 function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 var createRootDispatcher = require('../lib/createRootDispatcher.js');
-var rootDispatcher;
-var eventModel;
-describe('RootDispatcher', function() {
-  beforeEach(function(){
-    // dispatch = sinon.spy();
-    rootDispatcher = createRootDispatcher(function(model) {
-      eventModel = model;
-    });
+var createScoped = require('../lib/extenders/createScoped.js');
+var withIdentity = require('../lib/extenders/withIdentity.js');
+var withFilter = require('../lib/extenders/withFilter.js');
+
+describe('RootDispatcher', function () {
+  var rootDispatcher;
+  var writer;
+
+  beforeEach(function () {
+    writer = sinon.fake();
+    rootDispatcher = createRootDispatcher(writer);
   });
 
   describe('dispatch', function () {
     it('should concatinate scopes with _', function (done) {
-      var scope1 = "scope1";
-      var scope2 = "scope2";
-      var eventName = "event";
+      var scope1 = 'scope1';
+      var scope2 = 'scope2';
+      var eventName = 'event';
 
-      rootDispatcher.createScoped(scope1).createScoped(scope2).dispatch(eventName)
-      .then(function(){
-        eventModel.Scope.should.be.equal(scope1 + "_" + scope2);
-        done();
-      });
+      rootDispatcher.extend(createScoped(scope1), createScoped(scope2)).dispatch(eventName)
+        .then(function () {
+          sinon.assert.calledWithExactly(writer, sinon.match({ Scope: scope1 + '_' + scope2 }));
+          done();
+        });
     });
 
     it('should copy identities', function (done) {
       var id = '12345';
-      rootDispatcher.withIdentity('id',id).dispatch('event')
-      .then(function(){
-        eventModel.Identities['id'].should.be.equal(id);
-        done();
-      });
+      rootDispatcher.extend(withIdentity('id', id)).dispatch('event')
+        .then(function () {
+          sinon.assert.calledWithExactly(writer, sinon.match({ Identities: { id: id } }));
+          done();
+        });
     });
 
     it('should run all filters', function (done) {
-      var firstFilter = function(model){
+      var firstFilter = function (model) {
         return Promise.resolve()
-        .then(function(){
-          model.ExtraData["key1"] = "value1";
-        });
+          .then(function () {
+            model.ExtraData['key1'] = 'value1';
+          });
       };
-      var lastFilter = function(model){
+      var lastFilter = function (model) {
         return Promise.resolve()
-        .then(function(){
-          model.ExtraData["key2"] = "value2";
-        });
+          .then(function () {
+            model.ExtraData['key2'] = 'value2';
+          });
       };
-      rootDispatcher.withFilter(firstFilter).withFilter(lastFilter).dispatch()
-      .then(function(){
-        eventModel.ExtraData["key1"].should.be.equal("value1");
-        eventModel.ExtraData["key2"].should.be.equal("value2");
-        done();
-      });
+      rootDispatcher.extend(withFilter(firstFilter), withFilter(lastFilter)).dispatch()
+        .then(function () {
+          sinon.assert.calledWithExactly(writer, sinon.match({ ExtraData: { key1: 'value1', key2: 'value2' } }));
+          done();
+        });
     });
 
     it('should run filters sequentially', function (done) {
-      var firstFilter = function(model){
+      var firstFilter = function (model) {
         return delay(10)
-        .then(function(){
+          .then(function () {
 
-          model.ExtraData["key"] = "firstFilter";
+            model.ExtraData['key'] = 'firstFilter';
 
-        });
+          });
       };
-      var lastFilter = function(model){
+      var lastFilter = function (model) {
         return Promise.resolve()
-        .then(function(){
-          model.ExtraData["key"] = "lastFilter";
+          .then(function () {
+            model.ExtraData['key'] = 'lastFilter';
 
-        });
+          });
       };
-      rootDispatcher.withFilter(firstFilter).withFilter(lastFilter).dispatch()
-      .then(function(){
-        eventModel.ExtraData["key"].should.be.equal("lastFilter");
-        done();
-      });
+      rootDispatcher.extend(withFilter(firstFilter), withFilter(lastFilter)).dispatch()
+        .then(function () {
+          sinon.assert.calledWithExactly(writer, sinon.match({ ExtraData: { key: 'lastFilter' } }));
+          done();
+        });
     });
 
     it('should include Time filter with ISO datetime string', function (done) {
-      clock = sinon.useFakeTimers(new Date(2016,1,1).getTime());
+      clock = sinon.useFakeTimers(new Date(2016, 1, 1).getTime());
       rootDispatcher.dispatch()
-      .then(function(){
-        eventModel.ExtraData["Time"].should.be.equal(new Date().toISOString());
-      })
-      .then(function(){
-        clock.restore();
-        done();
-      })
+        .then(function () {
+          sinon.assert.calledWithExactly(writer, sinon.match({ ExtraData: { Time: new Date().toISOString() } }));
+        })
+        .then(function () {
+          clock.restore();
+          done();
+        });
     });
   });
 });
