@@ -1,6 +1,6 @@
 {
   "name": "shisell",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
   "main": "dist/shisell.umd.js",
   "browser": "dist/shisell.umd.js",
