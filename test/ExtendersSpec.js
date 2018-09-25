@@ -21,7 +21,7 @@ describe('extenders', function() {
   var analyticsDispathcer;
 
   beforeEach(function(){
-    dispatch = sinon.spy();
+    dispatch = sinon.fake();
     analyticsDispathcer = new AnalyticsDispatcher(dispatch, null);
   });
 
@@ -79,7 +79,7 @@ describe('extenders', function() {
 
   describe('withFilter', function () {
     it('should called dispatch with passed filter', function () {
-      var filter = sinon.spy();
+      var filter = sinon.fake();
       var eventName = "event";
       var context = new AnalyticsContext();
       context.Filters.push(filter);
@@ -90,8 +90,8 @@ describe('extenders', function() {
     });
 
     it('should called dispatch with all filters', function () {
-      var filter1 = sinon.spy();
-      var filter2 = sinon.spy();
+      var filter1 = sinon.fake();
+      var filter2 = sinon.fake();
       var eventName = "event";
       var context = new AnalyticsContext();
       context.Filters.push(filter1);
@@ -105,8 +105,8 @@ describe('extenders', function() {
 
   describe('withFilters', function () {
     it('should called dispatch with all filters', function () {
-      var filter1 = sinon.spy();
-      var filter2 = sinon.spy();
+      var filter1 = sinon.fake();
+      var filter2 = sinon.fake();
       var eventName = "event";
       var context = new AnalyticsContext();
       context.Filters.push(filter1);

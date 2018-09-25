@@ -32,7 +32,7 @@ describe('AnalyticsDispatcher', function () {
       analyticsDispathcer.dispatch(eventName);
 
       sinon.assert.calledOnce(dispatch);
-      sinon.assert.calledWith(dispatch, eventName);
+      sinon.assert.calledWithExactly(dispatch, eventName, sinon.match.object);
     });
   });
 
