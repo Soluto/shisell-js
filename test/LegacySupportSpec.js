@@ -1,158 +1,167 @@
 var sinon = require('sinon');
-var chai = require("chai");
+var chai = require('chai');
 
 chai.should();
 
-var AnalyticsDispatcher = require('../lib/AnalyticsDispatcher.js');
-var AnalyticsContext = require('../lib/AnalyticsContext.js');
-var legacySupport = require('../lib/legacySupport');
+var shisell = require('../index.js');
+var AnalyticsDispatcher = shisell.AnalyticsDispatcher;
+var AnalyticsContext = shisell.AnalyticsContext;
 var dispatch;
 var analyticsDispathcer;
 
-describe('AnalyticsDispatcher', function() {
-  before(function() {
-    legacySupport();
-  });
-
-  beforeEach(function(){
-    dispatch = sinon.fake();
-    analyticsDispathcer = new AnalyticsDispatcher(dispatch, null);
-  });
-
-  describe('withContext', function () {
-    it('should called dispatch with passed context', function () {
-      var context = new AnalyticsContext();
-      context.Scopes = ["scope"];
-      var eventName = "event";
-
-      analyticsDispathcer.withContext(context).dispatch(eventName);
-
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+describe('Legacy', function () {
+  describe('ext', function () {
+    it('should allow extending the dispatcher', function () {
+      var called = false;
+      shisell.ext.withTestExtention = function () {
+        called = true;
+      };
+      new shisell.AnalyticsDispatcher().withTestExtention();
+      called.should.be.true;
     });
   });
 
-  describe('createScoped', function () {
-    it('should called dispatch with passed scope', function () {
-      var scope = "scope";
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Scopes = [scope];
-
-      analyticsDispathcer.createScoped(scope).dispatch(eventName);
-
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+  describe('AnalyticsDispatcher', function () {
+    beforeEach(function () {
+      dispatch = sinon.fake();
+      analyticsDispathcer = new AnalyticsDispatcher(dispatch, null);
     });
-  });
 
-  describe('withExtra', function () {
-    it('should called dispatch with passed extra data', function () {
-      var key = "key";
-      var value = "value";
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.ExtraData = {key : value};
+    describe('withContext', function () {
+      it('should called dispatch with passed context', function () {
+        var context = new AnalyticsContext();
+        context.Scopes = ['scope'];
+        var eventName = 'event';
 
-      analyticsDispathcer.withExtra(key, value).dispatch(eventName);
+        analyticsDispathcer.withContext(context).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withExtras', function () {
-    it('should called dispatch with all extras', function () {
-      var extras = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'};
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.ExtraData = extras;
+    describe('createScoped', function () {
+      it('should called dispatch with passed scope', function () {
+        var scope = 'scope';
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Scopes = [scope];
 
-      analyticsDispathcer.withExtras(extras).dispatch(eventName);
+        analyticsDispathcer.createScoped(scope).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withFilter', function () {
-    it('should called dispatch with passed filter', function () {
-      var filter = sinon.fake();
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Filters.push(filter);
+    describe('withExtra', function () {
+      it('should called dispatch with passed extra data', function () {
+        var key = 'key';
+        var value = 'value';
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.ExtraData = { key: value };
 
-      analyticsDispathcer.withFilter(filter).dispatch(eventName);
+        analyticsDispathcer.withExtra(key, value).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withFilter', function () {
-    it('should called dispatch with all filters', function () {
-      var filter1 = sinon.fake();
-      var filter2 = sinon.fake();
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Filters.push(filter1);
-      context.Filters.push(filter2);
+    describe('withExtras', function () {
+      it('should called dispatch with all extras', function () {
+        var extras = { 'key1': 'value1', 'key2': 'value2', 'key3': 'value3' };
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.ExtraData = extras;
 
-      analyticsDispathcer.withFilter(filter1).withFilter(filter2).dispatch(eventName);
+        analyticsDispathcer.withExtras(extras).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withFilters', function () {
-    it('should called dispatch with all filters', function () {
-      var filter1 = sinon.fake();
-      var filter2 = sinon.fake();
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Filters.push(filter1);
-      context.Filters.push(filter2);
+    describe('withFilter', function () {
+      it('should called dispatch with passed filter', function () {
+        var filter = sinon.fake();
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Filters.push(filter);
 
-      var filters = [filter1, filter2];
-      analyticsDispathcer.withFilters(filters).dispatch(eventName);
+        analyticsDispathcer.withFilter(filter).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withMeta', function () {
-    it('should called dispatch with passed meta data', function () {
-      var key = "key";
-      var value = "value";
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.MetaData = {key : value};
+    describe('withFilter', function () {
+      it('should called dispatch with all filters', function () {
+        var filter1 = sinon.fake();
+        var filter2 = sinon.fake();
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Filters.push(filter1);
+        context.Filters.push(filter2);
 
-      analyticsDispathcer.withMeta(key, value).dispatch(eventName);
+        analyticsDispathcer.withFilter(filter1).withFilter(filter2).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withIdentity', function () {
-    it('should called dispatch with passed identity', function () {
-      var key = "key";
-      var value = "value";
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Identities = {key : value};
+    describe('withFilters', function () {
+      it('should called dispatch with all filters', function () {
+        var filter1 = sinon.fake();
+        var filter2 = sinon.fake();
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Filters.push(filter1);
+        context.Filters.push(filter2);
 
-      analyticsDispathcer.withIdentity(key, value).dispatch(eventName);
+        var filters = [filter1, filter2];
+        analyticsDispathcer.withFilters(filters).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
-  });
 
-  describe('withIdentities', function () {
-    it('should called dispatch with all passed identities', function () {
-      var identities = {'key1': 'value1', 'key2': 'value2', 'key3': 'value3'};
-      var eventName = "event";
-      var context = new AnalyticsContext();
-      context.Identities = identities;
+    describe('withMeta', function () {
+      it('should called dispatch with passed meta data', function () {
+        var key = 'key';
+        var value = 'value';
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.MetaData = { key: value };
 
-      analyticsDispathcer.withIdentities(identities).dispatch(eventName);
+        analyticsDispathcer.withMeta(key, value).dispatch(eventName);
 
-      sinon.assert.calledWithExactly(dispatch, eventName, context);
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
+    });
+
+    describe('withIdentity', function () {
+      it('should called dispatch with passed identity', function () {
+        var key = 'key';
+        var value = 'value';
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Identities = { key: value };
+
+        analyticsDispathcer.withIdentity(key, value).dispatch(eventName);
+
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
+    });
+
+    describe('withIdentities', function () {
+      it('should called dispatch with all passed identities', function () {
+        var identities = { 'key1': 'value1', 'key2': 'value2', 'key3': 'value3' };
+        var eventName = 'event';
+        var context = new AnalyticsContext();
+        context.Identities = identities;
+
+        analyticsDispathcer.withIdentities(identities).dispatch(eventName);
+
+        sinon.assert.calledWithExactly(dispatch, eventName, context);
+      });
     });
   });
 });

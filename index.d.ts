@@ -30,6 +30,17 @@ declare module 'shisell' {
         constructor(dispatch: DispatchAnalytics, context?: AnalyticsContext);
         dispatch: DispatchAnalytics;
         extend: (...extenders: AnalyticsExtender[]) => AnalyticsDispatcher;
+
+        // todo: delete deprecated
+        withContext(context: AnalyticsContext): AnalyticsDispatcher;
+        createScoped(scope: string): AnalyticsDispatcher;
+        withExtra(key: string, value: any): AnalyticsDispatcher;
+        withExtras(extras: object): AnalyticsDispatcher;
+        withFilter(filter: AnalyticsFilter): AnalyticsDispatcher;
+        withFilters(filter: AnalyticsFilter[]): AnalyticsDispatcher;
+        withMeta(key: string, value: any): AnalyticsDispatcher;
+        withIdentity(key: string, value: any): AnalyticsDispatcher;
+        withIdentities(identities: {[key: string]: any}): AnalyticsDispatcher;
     }
 
     export function createRootDispatcher<T>(writer: EventModelWriter<T>, rootContext?: AnalyticsContext): AnalyticsDispatcher;
