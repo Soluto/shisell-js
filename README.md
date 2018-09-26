@@ -28,15 +28,15 @@ Use the following code to use the built in dispatcher:
 const rootDispatcher = shisell.createRootDispatcher(shisell.writers.console);
 ```
 
-Once the root dispatcher is created you can compose dispatchers by calling one of the Dispatcher extension methods. Finally, call dispatch on one of the dispatchers with an event name.
+Once the root dispatcher is created you can compose dispatchers by extending with one of the extender methods methods. Finally, call dispatch on one of the dispatchers with an event name.
 
 ```js
 //Composing dispatchers
-const loginViewDispatcher = rootDispatcher.createScoped('LoginView');
-const registrationBoxDispatcher = loginViewDispatcher.withExtra('type', 'registration');
+const loginViewDispatcher = rootDispatcher.extend(createScoped('LoginView'));
+const registrationBoxDispatcher = loginViewDispatcher.extend(withExtra('type', 'registration'));
 //...
 document.getElementById('btn-register').addEventListener("click", function(){
-  registrationBoxDispatcher.withIdentity('email', userEmail).withExtra('btn','register').dispatch('click');
+  registrationBoxDispatcher.extend(withIdentity('email', userEmail), withExtra('btn','register')).dispatch('click');
 });
 
 //console output:
@@ -62,14 +62,14 @@ Here's an example adding a Timestamp propery:
 ```js
 const rootDispatcher = shisell
                       .createRootDispatcher(shisell.writers.console)
-                      .withFilter(function(model){
+                      .extend(withFilter(function(model){
                         return Promise.resolve()
                           .then(function(){
                             model.ExtraData["timestamp"] = new Date().getTime();
                           });
-                        });
+                        }));
 
-const homePageDispatcher = rootDispatcher.createScoped('HomePage');
+const homePageDispatcher = rootDispatcher.extend(createScoped('HomePage'));
 //...
 homePageDispatcher.dispatch('PageView')
 
@@ -95,28 +95,29 @@ Note: currently filters have to be asynchronous (return a promise).
 We use several different extension methods for composing dispatchers, and you can easily add a custom one. For example, let's say that we frequently create dispatchers with several extra data properties that are part of our user model. So we have this sort of code often:
 
 ```js
-const homeViewDispatcher = rootDispatcher
-                          .withExtra('firstName', user.firstName)
-                          .withExtra('lastName', user.lastName)
-                          .withExtra('email', user.email)
-                          .withExtra('age', user.age);
+const homeViewDispatcher = rootDispatcher.extend(
+  withExtra('firstName', user.firstName),
+  withExtra('lastName', user.lastName),
+  withExtra('email', user.email),
+  withExtra('age', user.age),
+);
 ```
 
-Instead of writing this code every time you can add an extension method that does this for you:
+Instead of writing this code every time you can add a method that does this for you:
 
 ```js
-//Extending the dispatcher (to preserve 'this' semantics, don't use an arrow function)
-shisell.ext.withUser = function(user){
+function withUser(user) {
   const newContext = new AnalyticsContext();
   newContext.ExtraData['firstName'] = user.firstName;
   newContext.ExtraData['lastName'] = user.lastName;
   newContext.ExtraData['email'] = user.email;
   newContext.ExtraData['age'] = user.age;
-  return this.withContext(newContext);
-}
+  
+  return withContext(newContext);  
+} 
 
 //Usage
-const homeViewDispatcher = rootDispatcher.withUser(user);
+const homeViewDispatcher = rootDispatcher.extend(withUser(user));
 ```
 
 #### Creating a Custom Root Dispatcher
