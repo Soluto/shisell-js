@@ -127,6 +127,13 @@ If you would like to use a different model than the AnalyticsEventModel you can 
 
 Note: it is the root dispatcher's responsibility to run the filters.
 
+
+#### Legacy Support
+Previous version of this package used a different syntax. If you want to update the package and use the new syntax, but don't want to update all the places that still use the old syntax, simply add this line once:
+```js
+shisell.legacySupport();
+```
+
 ## Contributing
 Thanks for thinking about contributing! We are looking for contributions of any sort and size - features, bug fixes, documentation or anything else that you think will make shisell better.
 * Fork and clone locally
