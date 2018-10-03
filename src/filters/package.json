@@ -1,0 +1,5 @@
+{
+  "name": "shisell/filters",
+  "typings": "./index.d.ts",
+  "main": "./index.js"
+}

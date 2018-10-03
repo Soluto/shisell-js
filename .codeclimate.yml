@@ -1,6 +1,6 @@
 languages:
    JavaScript: true
 exclude_paths:
-  - "test/*"
+  - "spec/*"
   - ".git/*"
   - "node_modules/*"

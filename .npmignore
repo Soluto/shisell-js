@@ -1,8 +1,6 @@
 .codeclimate.yml
 .npmignore
 .travis.yml
-lib
-test
+spec
+src
 node_modules
-index.js
-rollup.config.js

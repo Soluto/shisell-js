@@ -6,10 +6,10 @@
   "browser": "dist/shisell.umd.js",
   "module": "dist/shisell.es.js",
   "jsnext:main": "dist/shisell.es.js",
-  "types": "index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
-    "test": "mocha test",
-    "build": "rimraf dist && rollup -c",
+    "test": "TS_NODE_PROJECT='./spec/tsconfig.json' mocha -r ts-node/register --recursive 'spec/**/*.spec.ts'",
+    "build": "rimraf dist types && tsc",
     "prepare": "npm run build"
   },
   "repository": {
@@ -24,13 +24,41 @@
   "author": "Soluto",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.0.2",
+    "@types/chai": "^4.1.6",
+    "@types/mixpanel": "^2.14.0",
+    "@types/mocha": "^5.2.5",
+    "@types/sinon": "^5.0.3",
+    "chai": "^4.2.0",
+    "husky": "^1.1.0",
+    "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
+    "prettier": "^1.14.3",
     "rimraf": "^2.6.1",
-    "rollup": "^0.43.0",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-uglify": "^2.0.1",
     "sinon": "^6.3.3",
-    "uglify-es": "^3.0.23"
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "deepmerge": "^2.2.1"
+  },
+  "optionalDependencies": {
+    "mixpanel": "*"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "bracketSpacing": false
+  },
+  "lint-staged": {
+    "*.{ts,js,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

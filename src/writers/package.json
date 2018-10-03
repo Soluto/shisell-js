@@ -1,0 +1,5 @@
+{
+  "name": "shisell/writers",
+  "typings": "./index.d.ts",
+  "main": "./index.js"
+}
