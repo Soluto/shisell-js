@@ -28,13 +28,17 @@ describe('extenders/withExtras', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    Object.assign(expected.ExtraData, extras);
-
     const extend = withExtras(extras);
 
     extend(analyticsDispatcher).dispatch();
 
     expect(analyticsDispatcher.context).to.deep.equal(new AnalyticsContext());
+  });
+
+  it('should not throw if corrupted input', () => {
+    const extend = withExtras(null as any);
+
+    const newDispatcher = extend(analyticsDispatcher);
+    expect(newDispatcher).to.equal(analyticsDispatcher);
   });
 });

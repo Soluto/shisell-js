@@ -27,13 +27,17 @@ describe('extenders/withFilter', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    expected.Filters.push(filter);
-
     const extend = withFilter(filter);
 
     extend(analyticsDispatcher).dispatch();
 
     expect(analyticsDispatcher.context).to.deep.equal(new AnalyticsContext());
+  });
+
+  it('should not throw if corrupted input', () => {
+    const extend = withFilter('not filter' as any);
+
+    const newDispatcher = extend(analyticsDispatcher);
+    expect(newDispatcher).to.equal(analyticsDispatcher);
   });
 });

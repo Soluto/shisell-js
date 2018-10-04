@@ -7,7 +7,9 @@ export function withFilters<T>(filters: AnalyticsFilter[]) {
     return identity;
   }
 
+  const filteredFilters = filters.filter(x => x && typeof x === 'function');
+
   const newContext = new AnalyticsContext();
-  newContext.Filters.push(...filters);
+  newContext.Filters.push(...filteredFilters);
   return withContext<T>(newContext);
 }

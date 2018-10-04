@@ -27,9 +27,6 @@ describe('extenders/withIdentity', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    expected.Identities[key] = value;
-
     const extend = withIdentity(key, value);
 
     extend(analyticsDispatcher).dispatch();

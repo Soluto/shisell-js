@@ -3,7 +3,7 @@ import {identity} from './utils';
 import {withContext} from './withContext';
 
 export function withFilter<T>(filter: AnalyticsFilter) {
-  if (!filter) {
+  if (!filter || typeof filter !== 'function') {
     return identity;
   }
 

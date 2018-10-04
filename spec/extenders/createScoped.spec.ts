@@ -26,9 +26,6 @@ describe('extenders/createScoped', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    expected.Scopes.push(scope);
-
     const extend = createScoped(scope);
 
     extend(analyticsDispatcher).dispatch();

@@ -27,9 +27,6 @@ describe('extenders/withMeta', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    expected.MetaData[key] = value;
-
     const extend = withMeta(key, value);
 
     extend(analyticsDispatcher).dispatch();

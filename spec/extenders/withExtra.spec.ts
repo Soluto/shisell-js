@@ -27,9 +27,6 @@ describe('extenders/withExtra', () => {
   });
 
   it('should not modify original context', () => {
-    const expected = new AnalyticsContext();
-    expected.ExtraData[extraKey] = extraValue;
-
     const extend = withExtra(extraKey, extraValue);
 
     extend(analyticsDispatcher).dispatch();

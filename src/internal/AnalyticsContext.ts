@@ -18,10 +18,6 @@ export class AnalyticsContext {
 
     const union = new AnalyticsContext();
     Object.entries(union).forEach(([key, target]) => {
-      if (typeof target !== 'object') {
-        return;
-      }
-
       const value = (this as any)[key];
       const other = (analyticsContext as any)[key];
 

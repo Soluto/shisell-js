@@ -1,18 +1,18 @@
 import * as deepmerge from 'deepmerge';
 import {EventModelWriter} from '../createRootDispatcher';
 
-export function mixpanelWriter(id: string): EventModelWriter<void> {
+export function mixpanelWriter(identity: string): EventModelWriter<void> {
   return eventModel => {
-    if (!mixpanel) {
+    if (typeof mixpanel === 'undefined') {
       return;
     }
 
-    const extra = deepmerge.all([eventModel.Identities, eventModel.ExtraData, eventModel.MetaData]);
-    if (eventModel.Identities[id]) {
-      mixpanel.identify(eventModel.Identities[id]);
+    if (eventModel.Identities[identity]) {
+      mixpanel.identify(eventModel.Identities[identity]);
     }
 
-    const eventName = eventModel.Name ? `${eventModel.Scope}_${eventModel.Name}` : eventModel.Scope;
+    const eventName = [eventModel.Scope, eventModel.Name].filter(x => x).join('_');
+    const extra = deepmerge.all([eventModel.Identities, eventModel.ExtraData, eventModel.MetaData]);
 
     mixpanel.track(eventName, extra);
   };
