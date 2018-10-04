@@ -13,6 +13,7 @@ node_modules
 *.iws
 
 ## Project outputs:
-bundle.js
+.nyc_output
+coverage
 dist
 types

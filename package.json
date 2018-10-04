@@ -8,7 +8,7 @@
   "jsnext:main": "dist/shisell.es.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "test": "TS_NODE_PROJECT='./spec/tsconfig.json' mocha -r ts-node/register --recursive 'spec/**/*.spec.ts'",
+    "test": "TS_NODE_PROJECT='./spec/tsconfig.json' nyc mocha -r ts-node/register -r source-map-support/register --recursive 'spec/**/*.spec.ts'",
     "build": "rimraf dist types && tsc",
     "prepare": "npm run build"
   },
@@ -32,9 +32,11 @@
     "husky": "^1.1.0",
     "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
+    "nyc": "^13.0.1",
     "prettier": "^1.14.3",
     "rimraf": "^2.6.1",
     "sinon": "^6.3.3",
+    "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.1"
   },
@@ -43,6 +45,26 @@
   },
   "optionalDependencies": {
     "mixpanel": "*"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "sourceMap": true,
+    "instrument": true
   },
   "prettier": {
     "printWidth": 120,
