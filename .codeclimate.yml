@@ -1,6 +1,8 @@
 languages:
    JavaScript: true
+   TypeScript: true
 exclude_paths:
   - "spec/*"
   - ".git/*"
   - "node_modules/*"
+  - "tools/*"

@@ -25,7 +25,7 @@ describe('AnalyticsContext', () => {
       expect(union).to.equal(context);
     });
 
-    const testObjectUnion = (key: keyof AnalyticsContext) => {
+    const testObjectUnion = (key: keyof AnalyticsContext): void => {
       let dataMap = context[key] as DataMap;
       dataMap.over = 'first';
       dataMap.obj = {
@@ -57,8 +57,6 @@ describe('AnalyticsContext', () => {
       const union = context.union(other);
 
       expect(union).to.deep.equal(expected);
-
-      return undefined;
     };
 
     const objectPrpos: Array<keyof AnalyticsContext> = ['ExtraData', 'Identities', 'MetaData'];

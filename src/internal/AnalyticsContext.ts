@@ -1,4 +1,4 @@
-import * as deepmerge from 'deepmerge';
+const deepmerge = require('deepmerge');
 import {AnalyticsEventModel} from './AnalyticsEventModel';
 import {DataMap, PromiseOrValue} from './types';
 

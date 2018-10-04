@@ -1,25 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "declaration": true,
-    "declarationDir": "types",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["esnext", "dom"],
-    "module": "CommonJS",
     "noImplicitAny": true,
     "noImplicitReturns": true,
+    "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "outDir": "./dist",
-    "paths": {
-      "shisell": ["./src"],
-      "shisell/*": ["./src/*"]
-    },
     "removeComments": true,
-    "rootDir": "./src",
+    "strictFunctionTypes": true,
+    "stripInternal": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["esnext", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
-    "target": "ES5"
+    "target": "es5",
+    "outDir": "./dist"
   },
-  "exclude": ["dist", "node_modules", "spec"]
+  "files": [
+    "./src/index.ts",
+    "./src/extenders/index.ts",
+    "./src/filters/index.ts",
+    "./src/writers/index.ts",
+    "./src/internal/umd.ts"
+  ]
 }

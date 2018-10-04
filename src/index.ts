@@ -1,5 +1,5 @@
-export * from './internal/AnalyticsContext';
-export * from './internal/AnalyticsEventModel';
-export * from './internal/AnalyticsDispatcher';
-export * from './internal/createRootDispatcher';
-export * from './internal/types';
+export {AnalyticsContext, AnalyticsFilter} from './internal/AnalyticsContext';
+export {AnalyticsEventModel} from './internal/AnalyticsEventModel';
+export {AnalyticsDispatcher, AnalyticsExtender, DispatchAnalytics} from './internal/AnalyticsDispatcher';
+export {createRootDispatcher, EventModelWriter} from './internal/createRootDispatcher';
+export {DataMap, PromiseOrValue} from './internal/types';

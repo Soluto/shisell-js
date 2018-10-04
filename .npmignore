@@ -1,8 +1,12 @@
+.idea
+.nyc_output
+.rpt2_cache
+.vscode
+coverage
+node_modules
+spec
 .codeclimate.yml
 .npmignore
-.nyc_output
 .travis.yml
-coverage
-spec
-src
-node_modules
+rollup.config.js
+yarn.lock
