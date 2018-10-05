@@ -3,6 +3,8 @@ import {AnalyticsContext} from '../src/internal/AnalyticsContext';
 import {AnalyticsEventModel} from '../src/internal/AnalyticsEventModel';
 import {DataMap} from '../src/internal/types';
 
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 describe('AnalyticsContext', () => {
   let context: AnalyticsContext;
 
@@ -184,12 +186,11 @@ describe('AnalyticsContext', () => {
 
     it('should run filters sequentially', async () => {
       const firstFilter = async (model: AnalyticsEventModel) => {
-        await Promise.resolve();
+        await delay(5);
         model.ExtraData.key = 'firstFilter';
       };
 
-      const lastFilter = async (model: AnalyticsEventModel) => {
-        await Promise.resolve();
+      const lastFilter = (model: AnalyticsEventModel) => {
         model.ExtraData.key = 'lastFilter';
       };
 
