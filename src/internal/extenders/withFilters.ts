@@ -1,9 +1,9 @@
 import {AnalyticsContext, AnalyticsFilter} from '../AnalyticsContext';
-import {identity, isArray} from './utils';
+import {identity} from './utils';
 import {withContext} from './withContext';
 
 export function withFilters(filters: AnalyticsFilter[]) {
-  if (!isArray(filters)) {
+  if (!Array.isArray(filters)) {
     return identity;
   }
 

@@ -1,10 +1,10 @@
 import {AnalyticsContext} from '../AnalyticsContext';
 import {DataMap} from '../types';
-import {identity, isObject} from './utils';
+import {identity, isDataMap} from './utils';
 import {withContext} from './withContext';
 
 export function withExtras(extras: DataMap) {
-  if (!isObject(extras)) {
+  if (!isDataMap(extras)) {
     return identity;
   }
 

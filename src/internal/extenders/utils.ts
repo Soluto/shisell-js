@@ -1,11 +1,9 @@
+import {DataMap} from '../types';
+
 export function identity<T>(x: T): T {
   return x;
 }
 
-export function isObject(obj: any) {
+export function isDataMap(obj: unknown): obj is DataMap {
   return !!obj && typeof obj === 'object' && !Array.isArray(obj);
-}
-
-export function isArray(arr: any) {
-  return !!arr && Array.isArray(arr);
 }

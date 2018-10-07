@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {identity, isArray, isObject} from '../../src/internal/extenders/utils';
+import {identity, isDataMap} from '../../src/internal/extenders/utils';
 
 describe('extenders/utils', () => {
   interface TestCase {
@@ -16,64 +16,7 @@ describe('extenders/utils', () => {
     expect(result).to.equal(input);
   });
 
-  describe('isArray', () => {
-    const testCases: TestCase[] = [
-      {
-        description: 'null',
-        expected: false,
-        value: null,
-      },
-      {
-        description: 'undefined',
-        expected: false,
-        value: undefined,
-      },
-      {
-        description: 'number',
-        expected: false,
-        value: 1,
-      },
-      {
-        description: 'boolean',
-        expected: false,
-        value: true,
-      },
-      {
-        description: 'string',
-        expected: false,
-        value: 'str',
-      },
-      {
-        description: 'array',
-        expected: true,
-        value: ['arr'],
-      },
-      {
-        description: 'empty array',
-        expected: true,
-        value: [],
-      },
-      {
-        description: 'object',
-        expected: false,
-        value: {a: 'a'},
-      },
-      {
-        description: 'empty object',
-        expected: false,
-        value: {},
-      },
-    ];
-
-    testCases.forEach(({description, expected, value}) =>
-      it(`should return ${expected} if ${description}`, () => {
-        const result = isArray(value);
-        expect(result).to.equal(expected);
-      }),
-    );
-  });
-
-  describe('isObject', () => {
+  describe('isDataMap', () => {
     const testCases: TestCase[] = [
       {
         description: 'null',
@@ -124,7 +67,7 @@ describe('extenders/utils', () => {
 
     testCases.forEach(({description, expected, value}) =>
       it(`should return ${expected} if ${description}`, () => {
-        const result = isObject(value);
+        const result = isDataMap(value);
         expect(result).to.equal(expected);
       }),
     );
