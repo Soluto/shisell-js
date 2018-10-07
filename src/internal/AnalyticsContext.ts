@@ -17,17 +17,11 @@ export class AnalyticsContext {
     }
 
     const union = new AnalyticsContext();
-    Object.entries(union).forEach(([key, target]) => {
-      const value = (this as any)[key];
-      const other = (analyticsContext as any)[key];
-
-      if (Array.isArray(target)) {
-        target.push(...value, ...other);
-      } else {
-        const merged = deepmerge(value, other);
-        Object.assign(target, merged);
-      }
-    });
+    union.Scopes.push(...this.Scopes, ...analyticsContext.Scopes);
+    Object.assign(union.ExtraData, deepmerge(this.ExtraData, analyticsContext.ExtraData));
+    Object.assign(union.MetaData, deepmerge(this.MetaData, analyticsContext.MetaData));
+    Object.assign(union.Identities, deepmerge(this.Identities, analyticsContext.Identities));
+    union.Filters.push(...this.Filters, ...analyticsContext.Filters);
 
     return union;
   }
