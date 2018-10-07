@@ -1,6 +1,6 @@
 import {AnalyticsContext} from '../AnalyticsContext';
 import {AnalyticsDispatcher} from '../AnalyticsDispatcher';
 
-export function withContext<T>(analyticsContext: AnalyticsContext) {
-  return (dispatcher: AnalyticsDispatcher<T>) => new AnalyticsDispatcher<T>(dispatcher.dispatch, analyticsContext);
+export function withContext(analyticsContext: AnalyticsContext) {
+  return <T>(dispatcher: AnalyticsDispatcher<T>) => new AnalyticsDispatcher<T>(dispatcher.dispatch, analyticsContext);
 }

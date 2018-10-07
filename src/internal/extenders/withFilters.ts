@@ -2,7 +2,7 @@ import {AnalyticsContext, AnalyticsFilter} from '../AnalyticsContext';
 import {identity, isArray} from './utils';
 import {withContext} from './withContext';
 
-export function withFilters<T>(filters: AnalyticsFilter[]) {
+export function withFilters(filters: AnalyticsFilter[]) {
   if (!isArray(filters)) {
     return identity;
   }
@@ -11,5 +11,5 @@ export function withFilters<T>(filters: AnalyticsFilter[]) {
 
   const newContext = new AnalyticsContext();
   newContext.Filters.push(...filteredFilters);
-  return withContext<T>(newContext);
+  return withContext(newContext);
 }

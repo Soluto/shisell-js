@@ -10,6 +10,6 @@ export type EventModelWriter<T> = (event: AnalyticsEventModel) => PromiseOrValue
 export function createRootDispatcher<T>(eventModelWriter: EventModelWriter<T>, rootContext?: AnalyticsContext) {
   return new AnalyticsDispatcher(async (eventName, context) => {
     const eventModel = await context.toEventModel(eventName);
-    return eventModelWriter(eventModel);
+    return await eventModelWriter(eventModel);
   }, rootContext).extend(withFilters(defaultFilters));
 }
