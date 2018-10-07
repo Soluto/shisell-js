@@ -9,12 +9,12 @@ export class AnalyticsDispatcher<T> {
     readonly context: AnalyticsContext = new AnalyticsContext(),
   ) {}
 
-  dispatch = (eventName: string = '', analyticsContext?: AnalyticsContext): T => {
+  dispatch(eventName: string = '', analyticsContext?: AnalyticsContext): T {
     const unionContext = this.context.union(analyticsContext);
     return this.dispatchAnalytics(eventName, unionContext);
-  };
+  }
 
-  extend = (...extenders: Array<AnalyticsExtender<T>>): AnalyticsDispatcher<T> => {
+  extend(...extenders: Array<AnalyticsExtender<T>>): AnalyticsDispatcher<T> {
     return extenders.reduce((acc: AnalyticsDispatcher<T>, extender) => extender(acc), this);
-  };
+  }
 }
