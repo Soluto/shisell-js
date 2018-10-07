@@ -28,6 +28,10 @@
   ],
   "author": "Soluto",
   "license": "MIT",
+  "files": [
+    "src",
+    "dist"
+  ],
   "devDependencies": {
     "@types/chai": "^4.1.6",
     "@types/mixpanel": "^2.14.0",
@@ -57,42 +61,5 @@
   },
   "optionalDependencies": {
     "mixpanel": "*"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "exclude": [
-      "**/*.d.ts"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "sourceMap": true,
-    "instrument": true
-  },
-  "prettier": {
-    "printWidth": 120,
-    "singleQuote": true,
-    "trailingComma": "all",
-    "bracketSpacing": false
-  },
-  "lint-staged": {
-    "*.{ts,js,json,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
