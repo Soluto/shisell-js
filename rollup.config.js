@@ -10,6 +10,7 @@ export default {
       tsconfigOverride: {
         compilerOptions: {
           module: 'ES2015',
+          importHelpers: false,
         },
       },
     }),
