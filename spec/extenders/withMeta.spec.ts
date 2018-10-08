@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import * as sinon from 'sinon';
+import {SinonSpy, fake, assert} from 'sinon';
 import {AnalyticsContext} from '../../src/internal/AnalyticsContext';
 import {AnalyticsDispatcher} from '../../src/internal/AnalyticsDispatcher';
 import {withMeta} from '../../src/internal/extenders/withMeta';
@@ -7,11 +7,11 @@ import {withMeta} from '../../src/internal/extenders/withMeta';
 describe('extenders/withMeta', () => {
   const key = 'key';
   const value = 'value';
-  let dispatch: sinon.SinonSpy;
+  let dispatch: SinonSpy;
   let analyticsDispatcher: AnalyticsDispatcher<any>;
 
   beforeEach(() => {
-    dispatch = sinon.fake();
+    dispatch = fake();
     analyticsDispatcher = new AnalyticsDispatcher(dispatch);
   });
 
@@ -23,7 +23,7 @@ describe('extenders/withMeta', () => {
 
     extend(analyticsDispatcher).dispatch();
 
-    sinon.assert.calledWithExactly(dispatch, '', expected);
+    assert.calledWithExactly(dispatch, '', expected);
   });
 
   it('should not modify original context', () => {

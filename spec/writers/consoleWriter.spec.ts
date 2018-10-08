@@ -1,11 +1,11 @@
-import * as sinon from 'sinon';
+import {SinonSpy, spy, assert} from 'sinon';
 import {consoleWriter} from '../../src/internal/writers/consoleWriter';
 
 describe('writers/consoleWriter', () => {
-  let consoleSpy: sinon.SinonSpy;
+  let consoleSpy: SinonSpy;
 
   beforeEach(() => {
-    consoleSpy = sinon.spy(console, 'log');
+    consoleSpy = spy(console, 'log');
   });
 
   afterEach(() => {
@@ -22,7 +22,7 @@ describe('writers/consoleWriter', () => {
 
     consoleWriter(model as any);
 
-    sinon.assert.calledOnce(consoleSpy);
-    sinon.assert.calledWithExactly(consoleSpy, JSON.stringify(model));
+    assert.calledOnce(consoleSpy);
+    assert.calledWithExactly(consoleSpy, JSON.stringify(model));
   });
 });

@@ -1,16 +1,16 @@
 import {expect} from 'chai';
-import * as sinon from 'sinon';
+import {SinonSpy, assert, fake} from 'sinon';
 import {AnalyticsContext} from '../../src/internal/AnalyticsContext';
 import {AnalyticsDispatcher} from '../../src/internal/AnalyticsDispatcher';
 import {createScoped} from '../../src/internal/extenders/createScoped';
 
 describe('extenders/createScoped', () => {
   const scope = 'someScope';
-  let dispatch: sinon.SinonSpy;
+  let dispatch: SinonSpy;
   let analyticsDispatcher: AnalyticsDispatcher<any>;
 
   beforeEach(() => {
-    dispatch = sinon.fake();
+    dispatch = fake();
     analyticsDispatcher = new AnalyticsDispatcher(dispatch);
   });
 
@@ -22,7 +22,7 @@ describe('extenders/createScoped', () => {
 
     extend(analyticsDispatcher).dispatch();
 
-    sinon.assert.calledWithExactly(dispatch, '', expected);
+    assert.calledWithExactly(dispatch, '', expected);
   });
 
   it('should not modify original context', () => {

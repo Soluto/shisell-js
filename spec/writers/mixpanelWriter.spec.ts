@@ -1,4 +1,4 @@
-import * as sinon from 'sinon';
+import {stub, reset, assert, match} from 'sinon';
 import {mixpanelWriter} from '../../src/internal/writers/mixpanelWriter';
 import {AnalyticsEventModel} from '../../src/internal/types';
 
@@ -26,8 +26,8 @@ describe('writers/mixpanelWriter', () => {
 
   describe('mixpanel exists', () => {
     const globalAny = global as any;
-    const trackSpy = sinon.stub();
-    const identifySpy = sinon.stub();
+    const trackSpy = stub();
+    const identifySpy = stub();
 
     before(() => {
       globalAny.mixpanel = {
@@ -40,8 +40,8 @@ describe('writers/mixpanelWriter', () => {
       delete globalAny.mixpanel;
     });
 
-    beforeEach(() => {
-      sinon.reset();
+    afterEach(() => {
+      reset();
     });
 
     describe('track', () => {
@@ -50,8 +50,8 @@ describe('writers/mixpanelWriter', () => {
 
         writer(eventModel);
 
-        sinon.assert.calledOnce(trackSpy);
-        sinon.assert.calledWithExactly(trackSpy, sinon.match.string, expectedExtra);
+        assert.calledOnce(trackSpy);
+        assert.calledWithExactly(trackSpy, match.string, expectedExtra);
       });
 
       describe('event name', () => {
@@ -87,8 +87,8 @@ describe('writers/mixpanelWriter', () => {
 
             writer(eventModel);
 
-            sinon.assert.calledOnce(trackSpy);
-            sinon.assert.calledWithExactly(trackSpy, expected, sinon.match.object);
+            assert.calledOnce(trackSpy);
+            assert.calledWithExactly(trackSpy, expected, match.object);
           }),
         );
       });
@@ -98,9 +98,9 @@ describe('writers/mixpanelWriter', () => {
       it('should identify if id exists', () => {
         writer(eventModel);
 
-        sinon.assert.calledOnce(identifySpy);
-        sinon.assert.calledWithExactly(identifySpy, eventModel.Identities[identity]);
-        sinon.assert.calledOnce(trackSpy);
+        assert.calledOnce(identifySpy);
+        assert.calledWithExactly(identifySpy, eventModel.Identities[identity]);
+        assert.calledOnce(trackSpy);
       });
 
       it('should not identify if id does not exist', () => {
@@ -108,8 +108,8 @@ describe('writers/mixpanelWriter', () => {
 
         writer(eventModel);
 
-        sinon.assert.notCalled(identifySpy);
-        sinon.assert.calledOnce(trackSpy);
+        assert.notCalled(identifySpy);
+        assert.calledOnce(trackSpy);
       });
     });
   });

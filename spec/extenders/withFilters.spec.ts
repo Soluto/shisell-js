@@ -1,17 +1,17 @@
 import {expect} from 'chai';
-import * as sinon from 'sinon';
+import {SinonSpy, fake, assert} from 'sinon';
 import {AnalyticsContext} from '../../src/internal/AnalyticsContext';
 import {AnalyticsDispatcher} from '../../src/internal/AnalyticsDispatcher';
 import {withFilters} from '../../src/internal/extenders/withFilters';
 
 describe('extenders/withFilters', () => {
-  let filters: sinon.SinonSpy[];
-  let dispatch: sinon.SinonSpy;
+  let filters: SinonSpy[];
+  let dispatch: SinonSpy;
   let analyticsDispatcher: AnalyticsDispatcher<any>;
 
   beforeEach(() => {
-    filters = [sinon.fake(), sinon.fake()];
-    dispatch = sinon.fake();
+    filters = [fake(), fake()];
+    dispatch = fake();
     analyticsDispatcher = new AnalyticsDispatcher(dispatch);
   });
 
@@ -23,7 +23,7 @@ describe('extenders/withFilters', () => {
 
     extend(analyticsDispatcher).dispatch();
 
-    sinon.assert.calledWithExactly(dispatch, '', expected);
+    assert.calledWithExactly(dispatch, '', expected);
   });
 
   it('should not modify original context', () => {
@@ -42,7 +42,7 @@ describe('extenders/withFilters', () => {
 
     extend(analyticsDispatcher).dispatch();
 
-    sinon.assert.calledWithExactly(dispatch, '', expected);
+    assert.calledWithExactly(dispatch, '', expected);
   });
 
   it('should not throw if corrupted input', () => {

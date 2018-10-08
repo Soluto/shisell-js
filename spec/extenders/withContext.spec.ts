@@ -1,16 +1,16 @@
 import {expect} from 'chai';
-import * as sinon from 'sinon';
+import {SinonSpy, fake, assert} from 'sinon';
 import {AnalyticsContext} from '../../src/internal/AnalyticsContext';
 import {AnalyticsDispatcher} from '../../src/internal/AnalyticsDispatcher';
 import {withContext} from '../../src/internal/extenders/withContext';
 
 describe('extenders/withContext', () => {
-  let dispatch: sinon.SinonSpy;
+  let dispatch: SinonSpy;
   let analyticsDispatcher: AnalyticsDispatcher<any>;
   let context: AnalyticsContext;
 
   beforeEach(() => {
-    dispatch = sinon.fake();
+    dispatch = fake();
     context = new AnalyticsContext();
     context.ExtraData.key = 'value';
     context.Identities.id = 'identity';
@@ -26,7 +26,7 @@ describe('extenders/withContext', () => {
 
     extend(analyticsDispatcher).dispatch();
 
-    sinon.assert.calledWithExactly(dispatch, '', context.union(newContext));
+    assert.calledWithExactly(dispatch, '', context.union(newContext));
   });
 
   it('should not modify contexts', () => {

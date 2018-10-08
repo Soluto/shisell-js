@@ -1,12 +1,12 @@
 import {expect} from 'chai';
-import * as sinon from 'sinon';
+import {SinonFakeTimers, useFakeTimers} from 'sinon';
 import {addTime} from '../../src/internal/filters/addTime';
 
 describe('filters/addTime', () => {
-  let clock: sinon.SinonFakeTimers;
+  let clock: SinonFakeTimers;
 
   before(() => {
-    clock = sinon.useFakeTimers(new Date());
+    clock = useFakeTimers(new Date());
   });
 
   after(() => {
