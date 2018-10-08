@@ -1,16 +1,15 @@
-import * as sinon from 'sinon';
+import {SinonSpy, SinonFakeTimers, fake, useFakeTimers, assert, match} from 'sinon';
 import {AnalyticsDispatcher} from '../src/internal/AnalyticsDispatcher';
-import {AnalyticsEventModel} from '../src/internal/AnalyticsEventModel';
 import {createRootDispatcher} from '../src/internal/createRootDispatcher';
 import defaultFilters from '../src/internal/filters/defaultFilters';
 
 describe('createRootDispatcher', () => {
   let rootDispatcher: AnalyticsDispatcher<any>;
-  let writer: sinon.SinonSpy;
-  let clock: sinon.SinonFakeTimers;
+  let writer: SinonSpy;
+  let clock: SinonFakeTimers;
 
   before(() => {
-    clock = sinon.useFakeTimers(new Date(2016, 1, 1).getTime());
+    clock = useFakeTimers(new Date(2016, 1, 1).getTime());
   });
 
   after(() => {
@@ -18,18 +17,33 @@ describe('createRootDispatcher', () => {
   });
 
   beforeEach(() => {
-    writer = sinon.fake();
+    writer = fake();
     rootDispatcher = createRootDispatcher(writer);
   });
 
   it('should call writer with event model', async () => {
     await rootDispatcher.dispatch();
-    sinon.assert.calledOnce(writer);
-    sinon.assert.calledWithExactly(writer, sinon.match.instanceOf(AnalyticsEventModel));
+    assert.calledOnce(writer);
+
+    const analyticsEventModelMatcher = match({
+      Name: match.string,
+      Scope: match.string,
+      ExtraData: match.object,
+      MetaData: match.object,
+      Identities: match.object,
+    });
+
+    assert.calledWithExactly(writer, analyticsEventModelMatcher);
   });
 
   it('should add default filters', async () => {
-    const expected = new AnalyticsEventModel();
+    const expected = {
+      Name: '',
+      Scope: '',
+      ExtraData: {},
+      MetaData: {},
+      Identities: {},
+    };
     await defaultFilters.reduce(async (acc, filter) => {
       await acc;
       await filter(expected);
@@ -37,7 +51,7 @@ describe('createRootDispatcher', () => {
 
     await rootDispatcher.dispatch();
 
-    sinon.assert.calledOnce(writer);
-    sinon.assert.calledWithExactly(writer, expected);
+    assert.calledOnce(writer);
+    assert.calledWithExactly(writer, expected);
   });
 });

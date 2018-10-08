@@ -71,7 +71,7 @@ createRootDispatcher(consoleWriter)
 ## Api Reference
 
 At the initialization code of your app, you should create a root dispatcher object. This root dispatcher is the "parent" of all dispatchers, and it is where you would set up common properties which needs to be attached to all the dispatched events.  
-In order to create the root dispatcher, shisell needs to receive a writer function. The writer function is just a function that accepts an object of type [AnalyticsEventModel](src/internal/AnalyticsEventModel.ts), and usually writes it to an analytics service (e.g. Mixpanel, Google Analytics etc.).
+In order to create the root dispatcher, shisell needs to receive a writer function. The writer function is just a function that accepts an object of type [AnalyticsEventModel](src/internal/types.ts#L6-L12), and usually writes it to an analytics service (e.g. Mixpanel, Google Analytics etc.).
 Out of the box Shisell comes with a writer function which outputs the event to the console.
 
 Use the following code to use the built in dispatcher:
@@ -181,7 +181,7 @@ When you call 'dispatch' on a dispatcher, it creates a union of the [AnalyticsCo
 
 If you would like to use a different model than the AnalyticsEventModel you can create your own custom dispatcher by creating a new [AnalyticsDispatcher](src/internal/AnalyticsDispatcher.ts) and passing it a function that receives two parameters - the eventName and the context.
 
-Note: you can use the `toEventModel` method to create a filtered [AnalyticsEventModel](src/internal/AnalyticsEventModel.ts)
+Note: you can use the `toEventModel` method to create a filtered [AnalyticsEventModel](src/internal/types.ts#L6-L12)
 
 ## Contributing
 

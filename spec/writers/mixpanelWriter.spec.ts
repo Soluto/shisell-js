@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import {mixpanelWriter} from '../../src/internal/writers/mixpanelWriter';
-import {AnalyticsEventModel} from '../../src/internal/AnalyticsEventModel';
+import {AnalyticsEventModel} from '../../src/internal/types';
 
 const identity = 'identity';
 
@@ -9,12 +9,15 @@ describe('writers/mixpanelWriter', () => {
   let eventModel: AnalyticsEventModel;
 
   beforeEach(() => {
-    eventModel = new AnalyticsEventModel();
-    eventModel.Name = 'eventname';
-    eventModel.Scope = 'scope';
-    eventModel.ExtraData.extra = 'extradata';
-    eventModel.Identities[identity] = 'someidentity';
-    eventModel.MetaData.meta = 'metadata';
+    eventModel = {
+      Name: 'eventname',
+      Scope: 'scope',
+      ExtraData: {
+        extra: 'extradata',
+      },
+      Identities: {[identity]: 'someidentity'},
+      MetaData: {meta: 'metadata'},
+    };
   });
 
   it('should not throw if mixpanel does not exist', () => {

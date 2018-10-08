@@ -11,7 +11,7 @@
     "strictFunctionTypes": true,
     "stripInternal": false,
     "suppressImplicitAnyIndexErrors": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,

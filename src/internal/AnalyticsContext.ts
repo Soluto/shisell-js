@@ -1,6 +1,5 @@
 const deepmerge = require('deepmerge');
-import {AnalyticsEventModel} from './AnalyticsEventModel';
-import {DataMap, PromiseOrValue} from './types';
+import {DataMap, PromiseOrValue, AnalyticsEventModel} from './types';
 
 export type AnalyticsFilter = (model: AnalyticsEventModel) => PromiseOrValue<void>;
 
@@ -17,22 +16,23 @@ export class AnalyticsContext {
     }
 
     const union = new AnalyticsContext();
-    union.Scopes.push(...this.Scopes, ...analyticsContext.Scopes);
-    Object.assign(union.ExtraData, deepmerge(this.ExtraData, analyticsContext.ExtraData));
-    Object.assign(union.MetaData, deepmerge(this.MetaData, analyticsContext.MetaData));
-    Object.assign(union.Identities, deepmerge(this.Identities, analyticsContext.Identities));
-    union.Filters.push(...this.Filters, ...analyticsContext.Filters);
+    union.Scopes.push(...this.Scopes, ...(analyticsContext.Scopes || []));
+    Object.assign(union.ExtraData, deepmerge(this.ExtraData, analyticsContext.ExtraData || {}));
+    Object.assign(union.MetaData, deepmerge(this.MetaData, analyticsContext.MetaData || {}));
+    Object.assign(union.Identities, deepmerge(this.Identities, analyticsContext.Identities || {}));
+    union.Filters.push(...this.Filters, ...(analyticsContext.Filters || []));
 
     return union;
   }
 
   async toEventModel(eventName: string): Promise<AnalyticsEventModel> {
-    const eventModel = new AnalyticsEventModel();
-    eventModel.Name = eventName;
-    eventModel.Scope = this.Scopes.join('_');
-    eventModel.ExtraData = deepmerge({}, this.ExtraData);
-    eventModel.MetaData = deepmerge({}, this.MetaData);
-    eventModel.Identities = deepmerge({}, this.Identities);
+    const eventModel: AnalyticsEventModel = {
+      Name: eventName,
+      Scope: this.Scopes.join('_'),
+      ExtraData: deepmerge({}, this.ExtraData),
+      MetaData: deepmerge({}, this.MetaData),
+      Identities: deepmerge({}, this.Identities),
+    };
 
     await this.Filters.reduce(async (acc, filter) => {
       await acc;

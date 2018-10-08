@@ -1,6 +1,6 @@
 import {expect} from 'chai';
 import {AnalyticsContext} from '../src/internal/AnalyticsContext';
-import {AnalyticsEventModel} from '../src/internal/AnalyticsEventModel';
+import {AnalyticsEventModel} from '../src/internal/types';
 import {DataMap} from '../src/internal/types';
 
 const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
@@ -23,8 +23,13 @@ describe('AnalyticsContext', () => {
   describe('union', () => {
     it('should return this if other is undefined', () => {
       const union = context.union(undefined);
-
       expect(union).to.equal(context);
+    });
+
+    it('should succeed if missing properties', () => {
+      context.ExtraData.key = 'value';
+      const union = context.union({} as any);
+      expect(union).to.deep.equal(context);
     });
 
     const testObjectUnion = (key: keyof AnalyticsContext): void => {
@@ -117,8 +122,13 @@ describe('AnalyticsContext', () => {
     let expectedEventModel: AnalyticsEventModel;
 
     beforeEach(() => {
-      expectedEventModel = new AnalyticsEventModel();
-      expectedEventModel.Name = eventName;
+      expectedEventModel = {
+        Name: eventName,
+        Scope: '',
+        ExtraData: {},
+        MetaData: {},
+        Identities: {},
+      };
     });
 
     const assert = async () => {

@@ -1,6 +1,5 @@
 import {expect} from 'chai';
 import * as sinon from 'sinon';
-import {AnalyticsEventModel} from '../../src/internal/AnalyticsEventModel';
 import {addTime} from '../../src/internal/filters/addTime';
 
 describe('filters/addTime', () => {
@@ -15,11 +14,16 @@ describe('filters/addTime', () => {
   });
 
   it('should add current ISO datetime string to event model', () => {
-    const eventModel = new AnalyticsEventModel();
-    addTime(eventModel);
+    const eventModel = {
+      ExtraData: {},
+    };
+    addTime(eventModel as any);
 
-    const expectedEventModel = new AnalyticsEventModel();
-    expectedEventModel.ExtraData.Time = new Date().toISOString();
+    const expectedEventModel = {
+      ExtraData: {
+        Time: new Date().toISOString(),
+      },
+    };
 
     expect(eventModel).to.deep.equal(expectedEventModel);
   });

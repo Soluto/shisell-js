@@ -1,5 +1,4 @@
 import * as sinon from 'sinon';
-import {AnalyticsEventModel} from '../../src/internal/AnalyticsEventModel';
 import {consoleWriter} from '../../src/internal/writers/consoleWriter';
 
 describe('writers/consoleWriter', () => {
@@ -14,11 +13,14 @@ describe('writers/consoleWriter', () => {
   });
 
   it('should write to console', () => {
-    const model = new AnalyticsEventModel();
-    model.ExtraData.key = 'value';
-    model.Name = 'eventName';
+    const model = {
+      Name: 'eventName',
+      ExtraData: {
+        key: 'value',
+      },
+    };
 
-    consoleWriter(model);
+    consoleWriter(model as any);
 
     sinon.assert.calledOnce(consoleSpy);
     sinon.assert.calledWithExactly(consoleSpy, JSON.stringify(model));

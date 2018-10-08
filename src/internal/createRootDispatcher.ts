@@ -1,9 +1,8 @@
 import {AnalyticsContext} from './AnalyticsContext';
 import {AnalyticsDispatcher} from './AnalyticsDispatcher';
-import {AnalyticsEventModel} from './AnalyticsEventModel';
 import {withFilters} from './extenders/withFilters';
 import defaultFilters from './filters/defaultFilters';
-import {PromiseOrValue} from './types';
+import {PromiseOrValue, AnalyticsEventModel} from './types';
 
 export type EventModelWriter<T> = (event: AnalyticsEventModel) => PromiseOrValue<T>;
 

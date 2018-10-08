@@ -16,10 +16,6 @@ describe('index', () => {
     let analyticsExtender: index.AnalyticsExtender<any>;
   });
 
-  it('should export AnalyticsEventModel', () => {
-    expect(index.AnalyticsEventModel).to.exist;
-  });
-
   it('should export createRootDispatcher', () => {
     expect(index.createRootDispatcher).to.exist;
     // @ts-ignore TS6133
@@ -31,5 +27,7 @@ describe('index', () => {
     let dataMap: index.DataMap;
     // @ts-ignore TS6133
     let promiseOrValue: index.PromiseOrValue<any>;
+    // @ts-ignore TS6133
+    let analyticsEventModel: index.AnalyticsEventModel;
   });
 });
