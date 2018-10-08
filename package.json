@@ -2,20 +2,14 @@
   "name": "shisell",
   "version": "1.0.0",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
-  "main": "./dist/index.js",
-  "browser": "./dist/bundles/shisell.umd.js",
-  "typings": "./dist/index.d.ts",
-  "module": "./dist/_esm5/index.js",
-  "es2015": "./dist/_esm2015/index.js",
+  "main": "./index.js",
+  "browser": "./bundles/shisell.umd.js",
+  "typings": "./index.d.ts",
+  "module": "./_esm5/index.js",
+  "es2015": "./_esm2015/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register -r source-map-support/register --recursive 'spec/**/*.spec.ts'",
-    "build": "npm-run-all clean_dist -p build_cjs build_esm5 build_esm2015 build_umd",
-    "clean_dist": "rimraf dist",
-    "build_cjs": "tsc -d && node tools/copyPackageFile.js extenders filters writers",
-    "build_esm5": "tsc -m es2015 --importHelpers --outDir ./dist/_esm5",
-    "build_esm2015": "tsc -m es2015 -t es2015 --importHelpers --outDir ./dist/_esm2015",
-    "build_umd": "rollup -c",
-    "prepublishOnly": "npm-run-all test build"
+    "build": "./build.sh"
   },
   "repository": {
     "type": "git",
@@ -28,10 +22,6 @@
   ],
   "author": "Soluto",
   "license": "MIT",
-  "files": [
-    "src",
-    "dist"
-  ],
   "devDependencies": {
     "@types/chai": "^4.1.6",
     "@types/mixpanel": "^2.14.0",

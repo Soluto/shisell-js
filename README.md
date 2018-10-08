@@ -54,7 +54,7 @@ createRootDispatcher(consoleWriter)
 
 For CDN, you can use [unpkg](https://unpkg.com/):
 
-https://unpkg.com/shisell/dist/bundles/shisell.umd.js
+https://unpkg.com/shisell/bundles/shisell.umd.js
 
 The global namespace for shisell is `shisell`:
 
