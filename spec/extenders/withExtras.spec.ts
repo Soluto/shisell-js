@@ -35,10 +35,28 @@ describe('extenders/withExtras', () => {
     expect(analyticsDispatcher.context).to.deep.equal(new AnalyticsContext());
   });
 
-  it('should not throw if corrupted input', () => {
-    const extend = withExtras(null as any);
+  describe('corrupted input', () => {
+    let originalEnv: any;
 
-    const newDispatcher = extend(analyticsDispatcher);
-    expect(newDispatcher).to.equal(analyticsDispatcher);
+    beforeEach(() => {
+      originalEnv = process.env;
+      process.env = Object.assign({}, originalEnv);
+    });
+
+    afterEach(() => {
+      process.env = originalEnv;
+    });
+
+    it('should not throw if corrupted input', () => {
+      process.env.NODE_ENV = 'production';
+      const extend = withExtras(null as any);
+
+      const newDispatcher = extend(analyticsDispatcher);
+      expect(newDispatcher).to.equal(analyticsDispatcher);
+    });
+
+    it('should throw if not prod env', () => {
+      expect(() => withExtras(null as any)).to.throw(TypeError);
+    });
   });
 });

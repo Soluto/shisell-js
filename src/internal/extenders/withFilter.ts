@@ -1,9 +1,12 @@
 import {AnalyticsContext, AnalyticsFilter} from '../AnalyticsContext';
-import {identity} from './utils';
+import {identity, isDevelopment} from './utils';
 import {withContext} from './withContext';
 
 export function withFilter(filter: AnalyticsFilter) {
   if (!filter || typeof filter !== 'function') {
+    if (isDevelopment()) {
+      throw TypeError("'filter' should be a function");
+    }
     return identity;
   }
 

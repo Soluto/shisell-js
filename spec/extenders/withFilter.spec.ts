@@ -33,11 +33,28 @@ describe('extenders/withFilter', () => {
 
     expect(analyticsDispatcher.context).to.deep.equal(new AnalyticsContext());
   });
+  describe('corrupted input', () => {
+    let originalEnv: any;
 
-  it('should not throw if corrupted input', () => {
-    const extend = withFilter('not filter' as any);
+    beforeEach(() => {
+      originalEnv = process.env;
+      process.env = Object.assign({}, originalEnv);
+    });
 
-    const newDispatcher = extend(analyticsDispatcher);
-    expect(newDispatcher).to.equal(analyticsDispatcher);
+    afterEach(() => {
+      process.env = originalEnv;
+    });
+
+    it('should not throw if corrupted input', () => {
+      process.env.NODE_ENV = 'production';
+      const extend = withFilter('not filter' as any);
+
+      const newDispatcher = extend(analyticsDispatcher);
+      expect(newDispatcher).to.equal(analyticsDispatcher);
+    });
+
+    it('should throw if not prod env', () => {
+      expect(() => withFilter(null as any)).to.throw(TypeError);
+    });
   });
 });
