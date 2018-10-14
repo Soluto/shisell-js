@@ -1,4 +1,4 @@
-const deepmerge = require('deepmerge');
+import * as deepmerge from 'deepmerge';
 import {EventModelWriter} from '../createRootDispatcher';
 
 export function mixpanelWriter(identity: string): EventModelWriter<void> {
