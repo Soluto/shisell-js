@@ -9,7 +9,7 @@ export class AnalyticsDispatcher<T> {
     readonly context: AnalyticsContext = new AnalyticsContext(),
   ) {}
 
-  dispatch(eventName: string = '', analyticsContext?: AnalyticsContext): T {
+  dispatch(eventName: string = '', analyticsContext?: Partial<AnalyticsContext>): T {
     const unionContext = this.context.union(analyticsContext);
     return this.dispatchAnalytics(eventName, unionContext);
   }

@@ -16,8 +16,11 @@ describe('AnalyticsDispatcher', () => {
 
   describe('dispatch', () => {
     it('should call dispatch with union contexts', () => {
-      const context = new AnalyticsContext();
-      context.Identities.id = '12345';
+      const context = {
+        Identities: {
+          id: '12345',
+        },
+      };
 
       const expectedContext = analyticsDispatcher.context.union(context);
 

@@ -28,7 +28,7 @@ describe('AnalyticsContext', () => {
 
     it('should succeed if missing properties', () => {
       context.ExtraData.key = 'value';
-      const union = context.union({} as any);
+      const union = context.union({});
       expect(union).to.deep.equal(context);
     });
 
