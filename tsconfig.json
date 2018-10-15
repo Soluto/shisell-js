@@ -14,6 +14,7 @@
     "lib": ["esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "importHelpers": true,
     "sourceMap": true,
     "strict": true,

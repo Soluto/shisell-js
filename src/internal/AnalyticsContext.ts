@@ -1,4 +1,4 @@
-import * as deepmerge from 'deepmerge';
+import deepmerge from 'deepmerge';
 import {DataMap, PromiseOrValue, AnalyticsEventModel} from './types';
 
 export type AnalyticsFilter = (model: AnalyticsEventModel) => PromiseOrValue<void>;
