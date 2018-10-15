@@ -1,15 +1,16 @@
 import commonjs from 'rollup-plugin-commonjs';
-import uglify from 'rollup-plugin-uglify';
-import {minify} from 'uglify-es';
+import resolve from 'rollup-plugin-node-resolve';
+import {uglify} from 'rollup-plugin-uglify';
 
 export default {
-    entry: 'index.js',
-    plugins: [
-        commonjs(),
-        uglify({}, minify)
-    ],
-    targets: [
-        { dest: 'dist/shisell.umd.js', format: 'umd', moduleName: 'shisell' },
-        { dest: 'dist/shisell.es.js', format: 'es' }
-    ]
-}
+  input: './dist/_rollup/internal/umd.js',
+  plugins: [resolve(), commonjs(), uglify()],
+  output: [
+    {
+      file: 'dist/bundles/shisell.umd.js',
+      format: 'umd',
+      name: 'shisell',
+      exports: 'named',
+    },
+  ],
+};

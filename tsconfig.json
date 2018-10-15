@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "strictFunctionTypes": true,
+    "stripInternal": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["esnext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es5",
+    "outDir": "./dist"
+  },
+  "files": [
+    "./src/index.ts",
+    "./src/extenders/index.ts",
+    "./src/filters/index.ts",
+    "./src/writers/index.ts",
+    "./src/internal/umd.ts"
+  ]
+}

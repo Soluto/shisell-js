@@ -1,16 +1,15 @@
 {
   "name": "shisell",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "A service agnostic JS library for building immutable scoped analytic event dispatchers with extra data, identities and lazy filters.",
-  "main": "dist/shisell.umd.js",
-  "browser": "dist/shisell.umd.js",
-  "module": "dist/shisell.es.js",
-  "jsnext:main": "dist/shisell.es.js",
-  "types": "index.d.ts",
+  "main": "./index.js",
+  "browser": "./bundles/shisell.umd.js",
+  "typings": "./index.d.ts",
+  "module": "./_esm5/index.js",
+  "es2015": "./_esm2015/index.js",
   "scripts": {
-    "test": "mocha test",
-    "build": "rimraf dist && rollup -c",
-    "prepare": "npm run build"
+    "test": "nyc mocha -r ts-node/register -r source-map-support/register --recursive 'spec/**/*.spec.ts'",
+    "build": "./build.sh"
   },
   "repository": {
     "type": "git",
@@ -24,13 +23,32 @@
   "author": "Soluto",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.0.2",
+    "@types/chai": "^4.1.6",
+    "@types/mixpanel": "^2.14.0",
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.11.7",
+    "@types/sinon": "^5.0.5",
+    "chai": "^4.2.0",
+    "husky": "^1.1.2",
+    "lint-staged": "^7.3.0",
     "mocha": "^5.2.0",
-    "rimraf": "^2.6.1",
-    "rollup": "^0.43.0",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-uglify": "^2.0.1",
-    "sinon": "^6.3.3",
-    "uglify-es": "^3.0.23"
+    "npm-run-all": "^4.1.3",
+    "nyc": "^13.1.0",
+    "prettier": "^1.14.3",
+    "rollup": "^0.66.6",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "sinon": "^7.0.0",
+    "source-map-support": "^0.5.9",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.3"
+  },
+  "dependencies": {
+    "deepmerge": "^2.2.1",
+    "tslib": "^1.9.3"
+  },
+  "optionalDependencies": {
+    "mixpanel": "*"
   }
 }

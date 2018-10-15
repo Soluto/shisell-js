@@ -13,5 +13,7 @@ node_modules
 *.iws
 
 ## Project outputs:
-bundle.js
+.nyc_output
+.rpt2_cache
+coverage
 dist

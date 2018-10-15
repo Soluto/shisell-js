@@ -1,0 +1,8 @@
+{
+  "name": "shisell/filters",
+  "typings": "./index.d.ts",
+  "main": "./index.js",
+  "module": "../_esm5/filters/index.js",
+  "es2015": "../_esm2015/filters/index.js",
+  "sideEffects": false
+}

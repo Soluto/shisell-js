@@ -1,0 +1,8 @@
+{
+  "name": "shisell/writers",
+  "typings": "./index.d.ts",
+  "main": "./index.js",
+  "module": "../_esm5/writers/index.js",
+  "es2015": "../_esm2015/writers/index.js",
+  "sideEffects": false
+}
