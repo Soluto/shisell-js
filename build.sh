@@ -35,4 +35,4 @@ then
     exit ${EXIT_CODE}
 fi
 
-copy_package_files extenders filters writers
+copy_package_files extenders filters writers legacy

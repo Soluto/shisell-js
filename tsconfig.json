@@ -25,6 +25,7 @@
     "./src/extenders/index.ts",
     "./src/filters/index.ts",
     "./src/writers/index.ts",
+    "./src/legacy/index.ts",
     "./src/internal/umd.ts"
   ]
 }
