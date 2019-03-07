@@ -10,7 +10,6 @@
     "removeComments": true,
     "strictFunctionTypes": true,
     "stripInternal": false,
-    "suppressImplicitAnyIndexErrors": true,
     "lib": ["esnext"],
     "module": "commonjs",
     "moduleResolution": "node",
