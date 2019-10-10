@@ -1,0 +1,8 @@
+{
+  "name": "shisell/legacy",
+  "typings": "./index.d.ts",
+  "main": "./index.js",
+  "module": "../_esm5/legacy/index.js",
+  "es2015": "../_esm2015/legacy/index.js",
+  "sideEffects": false
+}
