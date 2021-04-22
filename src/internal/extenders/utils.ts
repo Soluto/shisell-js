@@ -9,3 +9,14 @@ export function isDataMap(obj: unknown): obj is DataMap {
 }
 
 export const isDevelopment = () => typeof process !== 'undefined' && process.env.NODE_ENV !== 'production';
+
+export function assertDataMap(obj: unknown, name: string): obj is DataMap {
+  if (!isDataMap(obj)) {
+    if (isDevelopment()) {
+      throw TypeError(`'${name}' should be an object`);
+    }
+    return false;
+  }
+
+  return true;
+}

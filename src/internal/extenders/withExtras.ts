@@ -1,18 +1,11 @@
-import {AnalyticsContext} from '../AnalyticsContext';
 import {DataMap} from '../types';
-import {identity, isDataMap, isDevelopment} from './utils';
+import {assertDataMap, identity} from './utils';
 import {withContext} from './withContext';
 
 export function withExtras(extras: DataMap) {
-  if (!isDataMap(extras)) {
-    if (isDevelopment()) {
-      throw TypeError("'extras' should be an object");
-    }
-
+  if (!assertDataMap(extras, 'extras')) {
     return identity;
   }
 
-  const newContext = new AnalyticsContext();
-  Object.assign(newContext.ExtraData, extras);
-  return withContext(newContext);
+  return withContext({ExtraData: extras});
 }

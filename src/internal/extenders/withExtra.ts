@@ -1,8 +1,5 @@
-import {AnalyticsContext} from '../AnalyticsContext';
-import {withContext} from './withContext';
+import {withExtras} from './withExtras';
 
 export function withExtra(key: string, value: any) {
-  const newContext = new AnalyticsContext();
-  newContext.ExtraData[key] = value;
-  return withContext(newContext);
+  return withExtras({[key]: value});
 }

@@ -1,4 +1,4 @@
-import {AnalyticsContext, AnalyticsFilter} from '../AnalyticsContext';
+import {AnalyticsFilter} from '../AnalyticsContext';
 import {identity, isDevelopment} from './utils';
 import {withContext} from './withContext';
 
@@ -12,7 +12,5 @@ export function withFilters(filters: AnalyticsFilter[]) {
 
   const filteredFilters = filters.filter(x => x && typeof x === 'function');
 
-  const newContext = new AnalyticsContext();
-  newContext.Filters.push(...filteredFilters);
-  return withContext(newContext);
+  return withContext({Filters: filteredFilters});
 }
