@@ -44,4 +44,13 @@ describe('extenders/withContext', () => {
     expect(context).to.deep.equal(expectedContext);
     expect(newContext).to.deep.equal(expectedNewContext);
   });
+
+  it('should create AnalyticsContext instance', () => {
+    const newContext: Partial<AnalyticsContext> = {ExtraData: {key2: 'value3'}};
+
+    const extend = withContext(newContext);
+    const dispatcher = extend(analyticsDispatcher);
+    expect(dispatcher.context).to.be.instanceOf(AnalyticsContext);
+    expect(dispatcher.context).to.deep.equal(new AnalyticsContext().union(newContext));
+  });
 });

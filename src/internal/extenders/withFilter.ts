@@ -1,6 +1,6 @@
-import {AnalyticsContext, AnalyticsFilter} from '../AnalyticsContext';
+import {AnalyticsFilter} from '../AnalyticsContext';
 import {identity, isDevelopment} from './utils';
-import {withContext} from './withContext';
+import {withFilters} from './withFilters';
 
 export function withFilter(filter: AnalyticsFilter) {
   if (!filter || typeof filter !== 'function') {
@@ -10,7 +10,5 @@ export function withFilter(filter: AnalyticsFilter) {
     return identity;
   }
 
-  const newContext = new AnalyticsContext();
-  newContext.Filters.push(filter);
-  return withContext(newContext);
+  return withFilters([filter]);
 }
