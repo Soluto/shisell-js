@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    name: Test and build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '15'
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: yarn-${{ runner.OS }}-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-${{ runner.OS }}-${{ env.cache-name }}
+            yarn-${{ runner.OS }}-
+      - name: Install dependencies
+        # "--frozen-lockfile" doesn't work, see https://github.com/yarnpkg/yarn/issues/5840
+        run: |
+          yarn install
+          if [[ -n "$(git status -s yarn.lock)" ]] ; then
+            echo "yarn.lock is outdated"
+            exit 1
+          fi
+      - name: Run tests
+        run: yarn test
+      - uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: ff794714d59ad950b4def89ac0c2e950692f668361ac0729bc284207f2c39e86
+      - name: Typecheck
+        run: yarn tsc --noEmit
+      - name: Build
+        run: yarn build
