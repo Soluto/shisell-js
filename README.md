@@ -1,6 +1,6 @@
 # ![Shisell](http://i.imgur.com/mDUAVwl.png)
 
-[![Build Status](https://api.travis-ci.org/Soluto/shisell-js.svg?branch=master)](https://travis-ci.org/Soluto/shisell-js)
+[![Build Status](https://github.com/Soluto/shisell-js/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/Soluto/shisell-js/actions/workflows/ci.yml)
 [![Code Climate](https://codeclimate.com/github/Soluto/shisell-js/badges/gpa.svg)](https://codeclimate.com/github/Soluto/shisell-js)
 [![Test Coverage](https://codeclimate.com/github/Soluto/shisell-js/badges/coverage.svg)](https://codeclimate.com/github/Soluto/shisell-js/coverage)
 [![Dependency Status](https://www.versioneye.com/user/projects/595b5fa5368b080033562e8b/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/595b5fa5368b080033562e8b)
@@ -31,9 +31,7 @@ import {createRootDispatcher} from 'shisell';
 import {consoleWriter} from 'shisell/writers';
 import {createScoped} from 'shisell/extenders';
 
-createRootDispatcher(consoleWriter)
-  .extend(createScoped('Root'))
-  .dispatch('Event');
+createRootDispatcher(consoleWriter).extend(createScoped('Root')).dispatch('Event');
 ```
 
 ### CommonJS
@@ -45,9 +43,7 @@ const {createRootDispatcher} = require('shisell');
 const {consoleWriter} = require('shisell/writers');
 const {createScoped} = require('shisell/extenders');
 
-createRootDispatcher(consoleWriter)
-  .extend(createScoped('Root'))
-  .dispatch('Event');
+createRootDispatcher(consoleWriter).extend(createScoped('Root')).dispatch('Event');
 ```
 
 ### CDN
@@ -63,9 +59,7 @@ const {createRootDispatcher} = shisell;
 const {consoleWriter} = shisell.writers;
 const {createScoped} = shisell.extenders;
 
-createRootDispatcher(consoleWriter)
-  .extend(createScoped('Root'))
-  .dispatch('Event');
+createRootDispatcher(consoleWriter).extend(createScoped('Root')).dispatch('Event');
 ```
 
 ## Api Reference
@@ -92,7 +86,7 @@ import {createScoped, withExtra, withIdentity} from 'shisell/extenders';
 const loginViewDispatcher = rootDispatcher.extend(createScoped('LoginView'));
 const registrationBoxDispatcher = loginViewDispatcher.extend(withExtra('type', 'registration'));
 //...
-document.getElementById('btn-register').addEventListener('click', function() {
+document.getElementById('btn-register').addEventListener('click', function () {
   registrationBoxDispatcher.extend(withIdentity('email', userEmail), withExtra('btn', 'register')).dispatch('click');
 });
 
@@ -117,7 +111,7 @@ Filters are functions which are executed by the root dispatcher when dispatching
 Here's an example adding a Timestamp propery:
 
 ```js
-const addTimeFilter = model => {
+const addTimeFilter = (model) => {
   model.ExtraData['timestamp'] = new Date().getTime();
 };
 
