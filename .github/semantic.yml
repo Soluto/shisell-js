@@ -1,0 +1,5 @@
+# Always validate the PR title AND all the commits
+titleAndCommits: true
+
+# Allow use of Revert commits (eg on github: "Revert "feat: ride unicorns"")
+allowRevertCommits: true

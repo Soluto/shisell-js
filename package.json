@@ -25,6 +25,8 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^18.0.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/chai": "^4.1.6",
     "@types/mixpanel": "^2.14.0",
     "@types/mocha": "^8.2.2",
@@ -40,6 +42,7 @@
     "rollup": "^2.45.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-uglify": "^6.0.0",
+    "semantic-release": "19.0.2",
     "sinon": "^10.0.0",
     "source-map-support": "^0.5.9",
     "ts-node": "^9.1.1",
