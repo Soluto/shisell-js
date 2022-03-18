@@ -1,0 +1,26 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: fix
+      include: scope
+    allow:
+      - dependency-type: all
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 1
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
+    allow:
+      - dependency-type: direct
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
