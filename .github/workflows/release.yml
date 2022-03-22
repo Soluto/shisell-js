@@ -15,9 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          ref: master
-          token: ${{ secrets.SOLUTO_JENKINS_TOKEN }}
 
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
