@@ -9,7 +9,8 @@
   "es2015": "./_esm2015/index.js",
   "scripts": {
     "test": "nyc mocha -r ts-node/register -r source-map-support/register --recursive 'spec/**/*.spec.ts'",
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "postversion": "cp -r package.json .."
   },
   "repository": {
     "type": "git",
