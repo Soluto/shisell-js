@@ -35,7 +35,7 @@ jobs:
           fi
       - name: Run tests
         run: yarn test
-      - uses: paambaati/codeclimate-action@v2.7.5
+      - uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ff794714d59ad950b4def89ac0c2e950692f668361ac0729bc284207f2c39e86
       - name: Typecheck
